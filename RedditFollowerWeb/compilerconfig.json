@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/css/style.css",
+    "inputFile": "Content/less/style.less"
+  },
+  {
+    "outputFile": "Content/js/tutorial.js",
+    "inputFile": "Content/js/tutorial.jsx"
+  }
+]

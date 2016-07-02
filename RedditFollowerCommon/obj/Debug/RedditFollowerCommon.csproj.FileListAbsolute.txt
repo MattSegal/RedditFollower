@@ -1,0 +1,5 @@
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\bin\Debug\RedditFollowerCommon.dll
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\bin\Debug\RedditFollowerCommon.pdb
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\obj\Debug\RedditFollowerCommon.csprojResolveAssemblyReference.cache
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\obj\Debug\RedditFollowerCommon.dll
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\obj\Debug\RedditFollowerCommon.pdb

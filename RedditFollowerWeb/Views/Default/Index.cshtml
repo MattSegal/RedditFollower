@@ -1,0 +1,62 @@
+﻿@using RedditFollowerCommon.Models;
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Redditors</title>
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/css/style.min.css")">
+    </head>
+    <body>
+        <div class="content">
+            <h3>Links from Interesting People</h3>
+            <div class="user-select">
+                <ul class="users">
+                    <li class="user">John</li>
+                    <li class="user">Dick</li>
+                    <li class="user">Harry</li>
+                </ul>
+
+                <input type="text" value="" />
+                <div class="add-user-btn">Add User</div>
+                <div class="add-user-btn">Cancel</div>
+            </div>
+
+            @* Need to get this from the API somehow *@
+            @if (ViewBag.FailedUsers.Count > 0)
+            {
+                <ul>
+                    @foreach (RedditUser failedUser in ViewBag.FailedUsers)
+                    {
+                    <li class="failed-user">
+                        <span class="failed-user-name">@failedUser.Username</span>
+                        <span class="failed-user-code">@failedUser.HttpCode</span>
+                    </li>
+                    }
+                </ul>
+            }
+            <ul>
+                @foreach (RedditThread thread in ViewBag.Threads)
+                {
+                <li class="thread">
+                    <div class="left-side">
+                        <a href="@thread.Url">@thread.title</a>
+                        <div class="authors">
+                            @foreach (string author in thread.GetCommentAuthors())
+                            {
+                                <span>@author</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="right-side">
+                        <div class="subreddit">
+                            <a href="http://www.reddit.com/r/@thread.subreddit">
+                                @thread.subreddit
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                }
+            </ul>
+        </div>
+    </body>
+</html>

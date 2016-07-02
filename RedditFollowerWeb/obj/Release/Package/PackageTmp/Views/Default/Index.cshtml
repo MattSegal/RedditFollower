@@ -1,0 +1,50 @@
+﻿@using RedditFollowerCommon.Models;
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Redditors</title>
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/css/style.min.css")">
+    </head>
+    <body>
+        <div class="content">
+            <h3>Links from Interesting People</h3>
+            @if (ViewBag.FailedUsers.Count > 0)
+            {
+                <ul>
+                    @foreach (RedditUser failedUser in ViewBag.FailedUsers)
+                    {
+                    <li class="failed-user">
+                        <span class="failed-user-name">@failedUser.Username</span>
+                        <span class="failed-user-code">@failedUser.ErrorCode</span>
+                    </li>
+                    }
+                </ul>
+            }
+            <ul>
+                @foreach (RedditThread thread in ViewBag.Threads)
+                {
+                <li>
+                    <div class="left-side">
+                        <a href="@thread.Url">@thread.title</a>
+                        <div class="authors">
+                            @foreach (string author in thread.GetCommentAuthors())
+                            {
+                                <span>@author</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="right-side">
+                        <div class="subreddit">
+                            <a href="http://www.reddit.com/r/@thread.subreddit">
+                                @thread.subreddit
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                }
+            </ul>
+        </div>
+
+    </body>
+</html>

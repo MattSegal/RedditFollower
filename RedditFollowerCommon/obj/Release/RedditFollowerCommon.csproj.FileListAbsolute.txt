@@ -1,0 +1,4 @@
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\bin\Release\RedditFollowerCommon.dll
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\bin\Release\RedditFollowerCommon.pdb
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\obj\Release\RedditFollowerCommon.dll
+C:\PartyTime\WebDev\windows\RedditFollower\RedditFollowerCommon\obj\Release\RedditFollowerCommon.pdb

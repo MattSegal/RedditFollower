@@ -1,0 +1,95 @@
+Input: 
+	a list of reddit usernames
+		yodatsracist
+		ScottAlexander
+		gwern
+		PM_ME_YOUR_OBSIDIAN
+	a date range
+
+Output:
+	a list of threads / links on a website
+
+App Created at https://www.reddit.com/prefs/apps
+	name: user_thread_finder
+	client_id: r6r1pTZv5Fs7ww
+	redirect uri: www.google.com
+	secret: SHuBH2aa3zuwrpFHWRcQ100wD8k
+	developer: The_Amp_Walrus
+
+Use the token. Notice that for using the token, requests are made to https://oauth.reddit.com
+
+Postman Request
+
+HTTP Basic Auth
+format - username:password
+Example:
+	username: Aladdin
+	password: open sesame
+	combined: Aladdin:open sesame
+	base64:   QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+	final:    Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+	header:   Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+
+Real:
+	client_id: r6r1pTZv5Fs7ww
+	secret: SHuBH2aa3zuwrpFHWRcQ100wD8k
+	combined: r6r1pTZv5Fs7ww:SHuBH2aa3zuwrpFHWRcQ100wD8k
+	final:    Basic cjZyMXBUWnY1RnM3d3c6U0h1QkgyYWEzenV3cnBGSFdSY1ExMDB3RDhr
+
+Header
+	Authorization : Basic cjZyMXBUWnY1RnM3d3c6U0h1QkgyYWEzenV3cnBGSFdSY1ExMDB3RDhr
+Body
+	x-www-form-urlencoded // you're fucking kidding me
+	grant_type = client_credentials
+
+Response:
+
+{
+  "access_token": "aufKcY-njZiHFHXbVJKZvD8kAVU",
+  "token_type": "bearer",
+  "expires_in": 3600,
+  "scope": "*"
+}
+
+Making a Request with acces token
+
+_username_ = gwern
+
+URL : https://oauth.reddit.com/user/_username_/comments?limit=100
+params limit = 25 to 100
+	   after = id of next item
+
+Header
+	Authorization : bearer aufKcY-njZiHFHXbVJKZvD8kAVU
+
+OAuth2 Request in Python with requests
+
+app_client_id = "p-jcoLKBynTLew"
+password = "snoo"
+secret = "gko_LXELoV07ZBNUXrvWZfzE3aI"
+OAUTH2_URL = "https://www.reddit.com/api/v1/access_token"
+
+import requests
+import requests.auth
+
+client_auth = requests.auth.HTTPBasicAuth(app_client_id,secret)
+
+post_data = {
+	"grant_type": "password", 
+	"username": "reddit_bot", 
+	"password": password
+}
+
+headers = {
+	"User-Agent": "ChangeMeClient/0.1 by YourUsername" # wtf?
+}
+response = requests.post(OAUTH2_URI, auth=client_auth, data=post_data, headers=headers)
+response.json()
+
+Output: 
+{
+	u'access_token': u'fhTdafZI-0ClEzzYORfBSCR7x3M',
+	 u'expires_in': 3600,
+	 u'scope': u'*',
+	 u'token_type': u'bearer'
+}
