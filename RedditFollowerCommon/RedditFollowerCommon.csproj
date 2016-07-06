@@ -43,9 +43,11 @@
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Models\AuthResponse.cs" />
-    <Compile Include="Models\RedditUser.cs" />
     <Compile Include="Models\RedditComment.cs" />
     <Compile Include="Models\RedditThread.cs" />
+    <Compile Include="Models\RedditUser.cs" />
+    <Compile Include="Models\RedditApiComment.cs" />
+    <Compile Include="Models\RedditApiThread.cs" />
     <Compile Include="Models\RedditTypes.cs" />
     <Compile Include="Models\ThreadResponse.cs" />
     <Compile Include="Models\UserResponse.cs" />

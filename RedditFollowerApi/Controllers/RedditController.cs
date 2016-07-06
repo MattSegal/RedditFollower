@@ -20,13 +20,13 @@ namespace RedditFollowerApi.Controllers
         }
 
         [HttpPost] // POST: api/reddit/threads
-        //public JsonResult Threads(string usersJson) // can we take a model as param?
         public JsonResult Threads(List<string> userNames)
         {
             // Get a list of comments from all users.
             var redditRepo = new RedditRepository();
             List<RedditComment> comments = new List<RedditComment>();
             List<RedditUser> users = new List<RedditUser>();
+            int userId = 0; // comes from db
             foreach (string user in userNames)
             {
                 // Can rework this to get more or fewer comments later
@@ -46,6 +46,7 @@ namespace RedditFollowerApi.Controllers
                 {
                     users.Add(new RedditUser
                     {
+                        UserId = userId++,
                         HttpCode = errorCode,
                         Username = user,
                         isSuccess = errorCode == 200
@@ -54,27 +55,28 @@ namespace RedditFollowerApi.Controllers
             }
 
             // Get Reddit threads from users' comments.
-            // Warning O(n^9000)
+            // Warning - abuse of LINQ
             Dictionary<string, List<RedditComment>> commentsGroupedByThread =
                 (from comment in comments
-                 group comment by comment.link_id into commentGroup
+                 group comment by comment.RedditLinkId into commentGroup
                  select commentGroup).ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
 
             IEnumerable<string> threadIds =
                 (from comment in comments
-                 select comment.link_id).Distinct<string>();
+                 select comment.RedditLinkId).Distinct<string>();
 
             List<RedditThread> threads = redditRepo.GetThreadsById(threadIds);
 
             foreach (RedditThread thread in threads)
             {
-                thread.comments = commentsGroupedByThread[RedditTypes.Thread + thread.id];
+                var threadComments = commentsGroupedByThread[RedditTypes.Thread + thread.RedditThreadId];
+                thread.SetComments(threadComments);
             }
 
             // Make sure they're in descending order
             threads =
                 (from thread in threads
-                 orderby thread.created_utc descending
+                 orderby thread.CreatedUtc descending
                  select thread).ToList<RedditThread>();
 
             var response = new ThreadResponse()

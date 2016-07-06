@@ -16,24 +16,27 @@
                 <div id="user-list-root">
                     <ul class="users">
                         <li class="user">
-                            Loading users...
+                            No users loaded.
                         </li>
                     </ul>
                 </div>
                 <input type="text" value="" />
                 <div class="add-user-btn">Add User</div>
                 <div class="add-user-btn">Cancel</div>
+                <div id="load-button-root">
+                    <div class="add-user-btn">Loading...</div>
+                </div>
             </div>
-            <ul>
-                <li class="thread">
-                    <div id="toggle-button-root"></div>
-                </li>
-            </ul>
+            <div id="thread-list-root"></div>
         </div>
-        <script id="test-response" type="text/plain">@testResponse</script>
         <script src="https://fb.me/react-15.0.1.js"></script>
         <script src="https://fb.me/react-dom-15.0.1.js"></script>
-        <script src="@Url.Content("~/Content/js/script.js")"></script>
-        <script src="@Url.Content("~/Content/js/tutorial.jsx")" ></script>
+        <script src="@Url.Content("~/Content/js/_Helpers.js")"></script>
+        <script src="@Url.Content("~/Content/js/_FollowerApi.js")"></script>
+        <script src="@Url.Content("~/Content/js/_Observer.js")"></script>
+        <script src="@Url.Content("~/Content/js/_UserModel.js")"></script>
+        <script src="@Url.Content("~/Content/js/_ThreadModel.js")"></script>
+        <script src="@Url.Content("~/Content/js/_Components.jsx")"></script>
+        <script src="@Url.Content("~/Content/js/_Events.jsx")"></script>
     </body>
 </html>

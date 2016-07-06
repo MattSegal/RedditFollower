@@ -79,6 +79,21 @@ input {
   background-color: #ddd;
   cursor: pointer;
 }
+.user-select .users .user-failure {
+  color: #444;
+  border: 1px #eee inset;
+  background-color: #eee;
+  border-radius: 2px;
+  padding: 3px 5px;
+  display: inline-block;
+  margin-right: 5px;
+  color: #c33;
+  background-color: #fcc;
+}
+.user-select .users .user-failure:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
 .user-select input {
   padding: 3px 5px;
   border-radius: 2px;

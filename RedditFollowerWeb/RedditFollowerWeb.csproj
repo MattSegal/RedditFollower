@@ -162,12 +162,17 @@
     <Content Include="Content\css\style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
-    <Content Include="Content\js\script.js" />
-    <Content Include="Content\js\tutorial.js">
-      <DependentUpon>tutorial.jsx</DependentUpon>
+    <Content Include="Content\js\_Components.js">
+      <DependentUpon>_Components.jsx</DependentUpon>
     </Content>
-    <Content Include="Content\js\tutorial.min.js">
-      <DependentUpon>tutorial.js</DependentUpon>
+    <Content Include="Content\js\_FollowerApi.js" />
+    <Content Include="Content\js\_ThreadModel.js" />
+    <Content Include="Content\js\_UserModel.js" />
+    <Content Include="Content\less\_constants.css">
+      <DependentUpon>_constants.less</DependentUpon>
+    </Content>
+    <Content Include="Content\less\_constants.min.css">
+      <DependentUpon>_constants.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="todo.txt" />
@@ -187,14 +192,15 @@
     <Content Include="packages.config" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Content\less\style.less" />
+    <Content Include="Content\less\_constants.less" />
+    <Content Include="Content\js\_Events.jsx" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Content\less\_constants.less" />
     <None Include="Properties\PublishProfiles\reddit.pubxml" />
     <Content Include="Views\Default\Client.cshtml" />
-    <Content Include="Content\js\tutorial.jsx" />
+    <Content Include="Content\js\_Components.jsx" />
     <Content Include="Views\Default\ReactTute.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -244,7 +250,9 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\JavaScriptEngineSwitcher.V8.1.5.2\build\JavaScriptEngineSwitcher.V8.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JavaScriptEngineSwitcher.V8.1.5.2\build\JavaScriptEngineSwitcher.V8.props'))" />
+    <Error Condition="!Exists('..\packages\BuildBundlerMinifier.2.1.258\build\BuildBundlerMinifier.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BuildBundlerMinifier.2.1.258\build\BuildBundlerMinifier.targets'))" />
   </Target>
+  <Import Project="..\packages\BuildBundlerMinifier.2.1.258\build\BuildBundlerMinifier.targets" Condition="Exists('..\packages\BuildBundlerMinifier.2.1.258\build\BuildBundlerMinifier.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

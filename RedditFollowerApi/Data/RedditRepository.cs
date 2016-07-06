@@ -19,10 +19,6 @@ namespace RedditFollowerApi.Data
         // Currently only gets last 25 comments
         // It would be nice to get as many as we like
 
-        public bool VerifyRedditUsername(string username)
-        {
-            return false;
-        }
 
         public List<RedditComment> GetRecentUserComments(string username)
         {
@@ -61,7 +57,8 @@ namespace RedditFollowerApi.Data
             foreach (JObject post in responseJson["data"]["children"])
             {
                 JObject postData = (JObject)post["data"];
-                RedditComment postComment = (RedditComment)postData.ToObject(typeof(RedditComment));
+                RedditApiComment postCommentFromApi = (RedditApiComment)postData.ToObject(typeof(RedditApiComment));
+                RedditComment postComment = new RedditComment(postCommentFromApi);
                 redditComments.Add(postComment);
             }
             return redditComments;
@@ -98,7 +95,8 @@ namespace RedditFollowerApi.Data
             foreach (JObject thread in responseJson["data"]["children"])
             {
                 JObject threadData = (JObject)thread["data"];
-                RedditThread redditThread = (RedditThread)threadData.ToObject(typeof(RedditThread));
+                RedditApiThread redditThreadFromApi = (RedditApiThread)threadData.ToObject(typeof(RedditApiThread));
+                RedditThread redditThread = new RedditThread(redditThreadFromApi);
                 redditThreads.Add(redditThread);
             }
 

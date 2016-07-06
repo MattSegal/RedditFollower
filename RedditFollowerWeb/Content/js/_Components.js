@@ -1,8 +1,4 @@
-﻿//var testResponse = getTestResponse()
-//var userData = testResponse["users"]
-
-// User List
-
+﻿// User List
 "use strict";
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -13,14 +9,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var userList = [{ id: 1, Name: "Harry" }, { id: 2, Name: "Dick" }, { id: 3, Name: "Tom" }];
-
 var UserList = React.createClass({
     displayName: "UserList",
 
     render: function render() {
         var userEntries = this.props.userList.map(function (user) {
-            return React.createElement(UserEntry, { key: user.id, user: user });
+            return React.createElement(UserEntry, { key: user.UserId, user: user });
         });
         return React.createElement(
             "ul",
@@ -35,20 +29,50 @@ var UserEntry = React.createClass({
 
     render: function render() {
         var user = this.props.user;
+        var liClassName = this.props.user.isSuccess ? "user" : "user-failure";
         return React.createElement(
             "li",
-            { className: "user" },
-            user.Name
+            { className: "{liClassName}" },
+            user.Username
         );
     }
 });
 
-ReactDOM.render(React.createElement(UserList, { userList: userList }), document.getElementById("user-list-root"));
+// Load Button
 
-// Toggle Button
+var LoadButton = (function (_React$Component) {
+    _inherits(LoadButton, _React$Component);
 
-var ToggleButton = (function (_React$Component) {
-    _inherits(ToggleButton, _React$Component);
+    function LoadButton() {
+        _classCallCheck(this, LoadButton);
+
+        _get(Object.getPrototypeOf(LoadButton.prototype), "constructor", this).call(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    // Toggle Button
+
+    _createClass(LoadButton, [{
+        key: "handleClick",
+        value: function handleClick() {
+            FollowerApi.call(UserModel.usernames(), updateModel);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "div",
+                { onClick: this.handleClick, className: "add-user-btn" },
+                "Load data from API"
+            );
+        }
+    }]);
+
+    return LoadButton;
+})(React.Component);
+
+var ToggleButton = (function (_React$Component2) {
+    _inherits(ToggleButton, _React$Component2);
 
     function ToggleButton() {
         _classCallCheck(this, ToggleButton);
@@ -81,6 +105,4 @@ var ToggleButton = (function (_React$Component) {
 
     return ToggleButton;
 })(React.Component);
-
-ReactDOM.render(React.createElement(ToggleButton, null), document.getElementById("toggle-button-root"));
 

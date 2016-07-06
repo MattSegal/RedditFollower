@@ -39,9 +39,9 @@
                 {
                 <li class="thread">
                     <div class="left-side">
-                        <a href="@thread.Url">@thread.title</a>
+                        <a href="@thread.Url">@thread.Title</a>
                         <div class="authors">
-                            @foreach (string author in thread.GetCommentAuthors())
+                            @foreach (string author in thread.CommentAuthors)
                             {
                                 <span>@author</span>
                             }
@@ -49,8 +49,8 @@
                     </div>
                     <div class="right-side">
                         <div class="subreddit">
-                            <a href="http://www.reddit.com/r/@thread.subreddit">
-                                @thread.subreddit
+                            <a href="http://www.reddit.com/r/@thread.Subreddit">
+                                @thread.Subreddit
                             </a>
                         </div>
                     </div>

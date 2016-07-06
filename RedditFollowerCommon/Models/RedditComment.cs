@@ -1,14 +1,27 @@
-﻿namespace RedditFollowerCommon.Models
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace RedditFollowerCommon.Models
 {
     public class RedditComment
     {
-        // there is probably some property based wizardry I can do to get nice names
-        public string body { get; set; } // remove the URL encoding when set  (someday...)
-        public string id;
-        public string link_id;
-        public string author;
-        public int score;
-        public int downs;
-        public long created_utc; // it would be nice to datetime this (unix epoch time)
+        public RedditComment() { }
+        public RedditComment(RedditApiComment apiComment)
+        {
+            Body = apiComment.body;
+            RedditId = apiComment.id;
+            RedditLinkId = apiComment.link_id;
+            Author = apiComment.author;
+            Score = apiComment.score;
+            Downvotes = apiComment.downs;
+            CreatedUtc = apiComment.created_utc;
+        }
+        public string Body;
+        public string RedditId;
+        public string RedditLinkId;
+        public string Author;
+        public int Score;
+        public int Downvotes;
+        public long CreatedUtc;
     }
 }
