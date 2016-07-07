@@ -44,7 +44,7 @@ input {
   background-color: #eee;
   border-radius: 2px;
 }
-.user-select {
+.dashboard {
   box-shadow: 1px 1px 1px 1px #999;
   background-color: #fff;
   margin: 8px 0px;
@@ -52,21 +52,26 @@ input {
   border-radius: 5px;
   font-size: 14px;
 }
-.user-select .user-style {
+.dashboard .user-style {
   color: #444;
   border: 1px #eee inset;
   background-color: #eee;
   border-radius: 2px;
   padding: 3px 5px;
 }
-.user-select .user-style:hover {
+.dashboard .user-style:hover {
   background-color: #ddd;
   cursor: pointer;
 }
-.user-select .users {
+.dashboard #user-list-root,
+.dashboard #user-info-root {
+  display: inline-block;
+}
+.dashboard .users {
+  display: inline-block;
   margin: 0 0 10px 0;
 }
-.user-select .users .user {
+.dashboard .users .user {
   color: #444;
   border: 1px #eee inset;
   background-color: #eee;
@@ -75,11 +80,11 @@ input {
   display: inline-block;
   margin-right: 5px;
 }
-.user-select .users .user:hover {
+.dashboard .users .user:hover {
   background-color: #ddd;
   cursor: pointer;
 }
-.user-select .users .user-failure {
+.dashboard .users .user-failure {
   color: #444;
   border: 1px #eee inset;
   background-color: #eee;
@@ -87,30 +92,33 @@ input {
   padding: 3px 5px;
   display: inline-block;
   margin-right: 5px;
-  color: #c33;
-  background-color: #fcc;
+  color: #a22;
+  background-color: #fdd;
 }
-.user-select .users .user-failure:hover {
+.dashboard .users .user-failure:hover {
   background-color: #ddd;
   cursor: pointer;
 }
-.user-select input {
+.dashboard .users .user-failure:hover {
+  background-color: #fbb;
+}
+.dashboard .btn {
+  color: #444;
+  border: 1px #eee inset;
+  background-color: #eee;
+  border-radius: 2px;
+  padding: 3px 5px;
+  display: inline-block;
+  border: none;
+}
+.dashboard .btn:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+.dashboard .new-user-input {
   padding: 3px 5px;
   border-radius: 2px;
   border: #999 solid 1px;
-}
-.user-select .add-user-btn {
-  display: inline-block;
-  color: #444;
-  border: 1px #eee inset;
-  background-color: #eee;
-  border-radius: 2px;
-  padding: 3px 5px;
-  border: none;
-}
-.user-select .add-user-btn:hover {
-  background-color: #ddd;
-  cursor: pointer;
 }
 li.thread {
   display: flex;

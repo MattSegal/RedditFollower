@@ -3,10 +3,9 @@ var UserList = React.createClass({
     render: function () {
         var userEntries = this.props.userList.map((user) => <UserEntry key={user.UserId} user={user}/>)
         return (
-            <ul className="users">
-                {userEntries}
-            </ul>
-    )}
+            <ul className="users">{userEntries}</ul>
+        )
+    }
 });
 
 var UserEntry = React.createClass({
@@ -18,6 +17,28 @@ var UserEntry = React.createClass({
             {user.Username}
         </li>
     )}
+});
+
+// User Info 
+// this name is kind of shit
+// this component is kind of shit
+var UserListInfo = React.createClass({
+    render: function () {
+        if (this.props.infoText) {
+            return (
+                <ul className="users">
+                    <li className="btn">
+                        {this.props.infoText}
+                    </li>
+                </ul>
+            )
+        } else {
+            return (
+                <ul className="users">
+                </ul>
+            )
+        }
+    }
 });
 
 // Thread List
@@ -62,7 +83,7 @@ var ThreadAuthor = React.createClass({
     )}
 });
 
-// Load Button
+// Load From Api Button
 class LoadButton extends React.Component {
     constructor() {
         super()
@@ -73,8 +94,8 @@ class LoadButton extends React.Component {
     }
     render() {
         return (
-            <div onClick={this.handleClick} className="add-user-btn">
-                Load data from API
+            <div onClick={this.handleClick} className="btn">
+                {this.props.content}
             </div>
         )
     }

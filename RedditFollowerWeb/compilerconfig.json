@@ -2,6 +2,8 @@
   {
     "outputFile": "Content/css/style.css",
     "inputFile": "Content/less/style.less",
-    "minify": {"enabled": true}
+    "minify": {
+      "enabled": true
+    }
   }
 ]

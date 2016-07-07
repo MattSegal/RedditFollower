@@ -22,10 +22,12 @@
     subs: {},
 }
 
+/*
 // Example
-//function muhCallback() {
-//    console.log("yay this worked")
-//}
-//Observer.addEvent("test")
-//Observer.subscribe("test", muhCallback)
-//Observer.publish("test", "I hope this worked")
+function muhCallback() {
+    console.log("yay this worked")
+}
+Observer.addEvent("test")
+Observer.subscribe("test", muhCallback)
+Observer.publish("test", "I hope this worked")
+*/

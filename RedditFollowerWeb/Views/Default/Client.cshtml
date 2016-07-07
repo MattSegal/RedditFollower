@@ -12,25 +12,27 @@
     <body>
         <div class="content">
             <h3>Links from Interesting People</h3>            
-            <div class="user-select">
+            <div class="dashboard">
                 <div id="user-list-root">
                     <ul class="users">
                         <li class="user">
-                            No users loaded.
+                            No users selected
                         </li>
                     </ul>
                 </div>
-                <input type="text" value="" />
-                <div class="add-user-btn">Add User</div>
-                <div class="add-user-btn">Cancel</div>
+                <div id="user-info-root"></div>
+
+                @*<input type="text" value="" />*@
+                @*<div class="add-user-btn">Add User</div>*@
+                @*<div class="add-user-btn">Cancel</div>*@
                 <div id="load-button-root">
-                    <div class="add-user-btn">Loading...</div>
+                    <div class="btn">Loading...</div>
                 </div>
             </div>
             <div id="thread-list-root"></div>
         </div>
-        <script src="https://fb.me/react-15.0.1.js"></script>
-        <script src="https://fb.me/react-dom-15.0.1.js"></script>
+        <script src="@Url.Content("~/Content/js/react.min.js")"></script>
+        <script src="@Url.Content("~/Content/js/react-dom.min.js")"></script>
         <script src="@Url.Content("~/Content/js/_Helpers.js")"></script>
         <script src="@Url.Content("~/Content/js/_FollowerApi.js")"></script>
         <script src="@Url.Content("~/Content/js/_Observer.js")"></script>

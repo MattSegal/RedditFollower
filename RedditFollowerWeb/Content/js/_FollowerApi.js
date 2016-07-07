@@ -1,5 +1,5 @@
 ﻿FollowerApi = {
-    call : (userList, callback) => {
+    call : (userList, successCallback, failureCallback) => {
         // Actually a POST request ¯\_(ツ)_/¯
         uri = "http://localhost/redditfollowerapi/reddit/threads"
         method = 'POST'
@@ -12,11 +12,13 @@
             if (httpRequest.status === 200) {
                 //console.log(httpRequest.responseText)
                 var responseObject = JSON.parse(httpRequest.responseText);
-                callback(responseObject)
+                successCallback(responseObject)
             } else if (httpRequest.status === 404) {
                 console.log('Request failed.  Returned status of ' + httpRequest.status);
+                failureCallback()
             } else {
                 console.log('Request failed.  Returned status of ' + httpRequest.status);
+                failureCallback()
             }
         };
         requestString = JSON.stringify(userList)

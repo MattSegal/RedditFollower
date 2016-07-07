@@ -162,10 +162,20 @@
     <Content Include="Content\css\style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
+    <Content Include="Content\js\react-dom.min.js" />
+    <Content Include="Content\js\react.min.js" />
     <Content Include="Content\js\_Components.js">
       <DependentUpon>_Components.jsx</DependentUpon>
     </Content>
+    <Content Include="Content\js\_Events.js">
+      <DependentUpon>_Events.jsx</DependentUpon>
+    </Content>
+    <Content Include="Content\js\_Events.min.js">
+      <DependentUpon>_Events.js</DependentUpon>
+    </Content>
     <Content Include="Content\js\_FollowerApi.js" />
+    <Content Include="Content\js\_Helpers.js" />
+    <Content Include="Content\js\_Observer.js" />
     <Content Include="Content\js\_ThreadModel.js" />
     <Content Include="Content\js\_UserModel.js" />
     <Content Include="Content\less\_constants.css">

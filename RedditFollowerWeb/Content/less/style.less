@@ -50,7 +50,7 @@ ul {
     border-radius: 2px;
 }
 
-.user-select {
+.dashboard {
     .panel-style;
     font-size: 14px;
     .user-style {
@@ -61,7 +61,12 @@ ul {
             cursor: pointer;
         }
     }
+    #user-list-root, #user-info-root {
+        display: inline-block;
+    }
+
     .users {
+        display: inline-block;
         margin: 0 0 10px 0;
         .user {
             .user-style;
@@ -70,22 +75,25 @@ ul {
         }
         .user-failure {
             .user;
-            color: #c33;
-            background-color: #fcc;
+            color: #a22;
+            background-color: #fdd;
+            &:hover {
+                background-color: #fbb;
+            }
         }
     }
-    
-    input {
+ 
+   .btn {
+        .user-style;
+        display: inline-block;
+        border: none;
+    }
+
+    .new-user-input {
         padding: 3px 5px;
         border-radius: 2px;
         border: @color_shadow solid 1px;
     }
-    .add-user-btn {
-        display: inline-block;
-        .user-style;
-        border: none;
-    }
-
 }
 
 li.thread {
