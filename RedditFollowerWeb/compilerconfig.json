@@ -5,5 +5,13 @@
     "minify": {
       "enabled": true
     }
+  },
+  {
+    "outputFile": "Content/js/View/_Components.js",
+    "inputFile": "Content/js/View/_Components.jsx"
+  },
+  {
+    "outputFile": "Content/js/Controllers/_ModelUpdateController.js",
+    "inputFile": "Content/js/Controllers/_ModelUpdateController.jsx"
   }
 ]

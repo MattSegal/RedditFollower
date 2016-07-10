@@ -162,22 +162,32 @@
     <Content Include="Content\css\style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
-    <Content Include="Content\js\react-dom.min.js" />
-    <Content Include="Content\js\react.min.js" />
-    <Content Include="Content\js\_Components.js">
+    <Content Include="Content\js\Controllers\_ModelUpdateController.js">
+      <DependentUpon>_ModelUpdateController.jsx</DependentUpon>
+    </Content>
+    <Content Include="Content\js\Controllers\_ModelUpdateController.min.js">
+      <DependentUpon>_ModelUpdateController.js</DependentUpon>
+    </Content>
+    <Content Include="Content\js\_Init.js" />
+    <Content Include="Content\js\Models\_UserInfoModel.js" />
+    <Content Include="Content\js\Models\_LoadingButtonModel.js" />
+    <Content Include="Content\js\Controllers\_UIController.js" />
+    <Content Include="Content\js\Controllers\_ApiController.js" />
+    <None Include="Content\js\Controllers\_ModelUpdateController.jsx" />
+    <Content Include="Content\js\_Routing.js" />
+    <Content Include="Content\js\React\react-dom.min.js" />
+    <Content Include="Content\js\React\react.min.js" />
+    <Content Include="Content\js\View\_Components.js">
       <DependentUpon>_Components.jsx</DependentUpon>
     </Content>
-    <Content Include="Content\js\_Events.js">
-      <DependentUpon>_Events.jsx</DependentUpon>
+    <Content Include="Content\js\View\_Components.min.js">
+      <DependentUpon>_Components.js</DependentUpon>
     </Content>
-    <Content Include="Content\js\_Events.min.js">
-      <DependentUpon>_Events.js</DependentUpon>
-    </Content>
-    <Content Include="Content\js\_FollowerApi.js" />
-    <Content Include="Content\js\_Helpers.js" />
-    <Content Include="Content\js\_Observer.js" />
-    <Content Include="Content\js\_ThreadModel.js" />
-    <Content Include="Content\js\_UserModel.js" />
+    <Content Include="Content\js\Services\_FollowerApi.js" />
+    <Content Include="Content\js\Services\_Helpers.js" />
+    <Content Include="Content\js\Services\_Observer.js" />
+    <Content Include="Content\js\Models\_ThreadModel.js" />
+    <Content Include="Content\js\Models\_UserModel.js" />
     <Content Include="Content\less\_constants.css">
       <DependentUpon>_constants.less</DependentUpon>
     </Content>
@@ -203,14 +213,13 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Content\less\style.less" />
     <Content Include="Content\less\_constants.less" />
-    <Content Include="Content\js\_Events.jsx" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <None Include="Properties\PublishProfiles\reddit.pubxml" />
     <Content Include="Views\Default\Client.cshtml" />
-    <Content Include="Content\js\_Components.jsx" />
+    <None Include="Content\js\View\_Components.jsx" />
     <Content Include="Views\Default\ReactTute.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

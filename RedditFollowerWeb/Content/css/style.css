@@ -25,6 +25,15 @@ ul {
   margin: 0;
   padding: 0;
 }
+li {
+  list-style: none;
+}
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .authors,
 .subreddit,
 .user,
@@ -38,8 +47,9 @@ input {
   padding: 12px;
   border-radius: 5px;
 }
-.user-style {
+.pill-style {
   color: #444;
+  padding: 3px 5px;
   border: 1px #eee inset;
   background-color: #eee;
   border-radius: 2px;
@@ -52,20 +62,22 @@ input {
   border-radius: 5px;
   font-size: 14px;
 }
-.dashboard .user-style {
+.dashboard .btn {
   color: #444;
+  padding: 3px 5px;
   border: 1px #eee inset;
   background-color: #eee;
   border-radius: 2px;
-  padding: 3px 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+  border: none;
 }
-.dashboard .user-style:hover {
+.dashboard .btn:hover {
   background-color: #ddd;
   cursor: pointer;
-}
-.dashboard #user-list-root,
-.dashboard #user-info-root {
-  display: inline-block;
 }
 .dashboard .users {
   display: inline-block;
@@ -73,11 +85,16 @@ input {
 }
 .dashboard .users .user {
   color: #444;
+  padding: 3px 5px;
   border: 1px #eee inset;
   background-color: #eee;
   border-radius: 2px;
-  padding: 3px 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   display: inline-block;
+  border: none;
   margin-right: 5px;
 }
 .dashboard .users .user:hover {
@@ -86,11 +103,16 @@ input {
 }
 .dashboard .users .user-failure {
   color: #444;
+  padding: 3px 5px;
   border: 1px #eee inset;
   background-color: #eee;
   border-radius: 2px;
-  padding: 3px 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   display: inline-block;
+  border: none;
   margin-right: 5px;
   color: #a22;
   background-color: #fdd;
@@ -102,18 +124,16 @@ input {
 .dashboard .users .user-failure:hover {
   background-color: #fbb;
 }
-.dashboard .btn {
+.dashboard .user-info-box {
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+.dashboard .user-info-box .user-info {
   color: #444;
+  padding: 3px 5px;
   border: 1px #eee inset;
   background-color: #eee;
   border-radius: 2px;
-  padding: 3px 5px;
-  display: inline-block;
-  border: none;
-}
-.dashboard .btn:hover {
-  background-color: #ddd;
-  cursor: pointer;
 }
 .dashboard .new-user-input {
   padding: 3px 5px;
@@ -123,13 +143,11 @@ input {
 li.thread {
   display: flex;
   justify-content: space-between;
-  /*border-bottom: 1px dashed #333;*/
   box-shadow: 1px 1px 1px 1px #999;
   background-color: #fff;
   margin: 8px 0px;
   padding: 12px;
   border-radius: 5px;
-  list-style: none;
 }
 li.thread .left-side {
   display: flex;
@@ -150,6 +168,7 @@ li.thread .right-side {
 }
 li.thread .authors {
   color: #444;
+  padding: 3px 5px;
   border: 1px #eee inset;
   background-color: #eee;
   padding: 0 5px 2px 5px;

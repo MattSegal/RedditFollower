@@ -31,6 +31,17 @@ ul {
     padding: 0;
 }
 
+li {
+    list-style: none;
+}
+
+.unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .authors, .subreddit, .user, input {
     font-family: @font_read;
 }
@@ -43,8 +54,9 @@ ul {
     border-radius: 5px;
 }
 
-.user-style {
+.pill-style {
     color: #444;
+    padding: 3px 5px;
     border: 1px #eee inset;
     background-color: #eee;
     border-radius: 2px;
@@ -53,24 +65,23 @@ ul {
 .dashboard {
     .panel-style;
     font-size: 14px;
-    .user-style {
-        .user-style;
-        padding: 3px 5px;
+
+    .btn {
+        .pill-style;
+        .unselectable;
+        display: inline-block;
+        border: none;
         &:hover {
             background-color: #ddd;
             cursor: pointer;
         }
-    }
-    #user-list-root, #user-info-root {
-        display: inline-block;
     }
 
     .users {
         display: inline-block;
         margin: 0 0 10px 0;
         .user {
-            .user-style;
-            display: inline-block;
+            .btn;
             margin-right: 5px;
         }
         .user-failure {
@@ -82,13 +93,15 @@ ul {
             }
         }
     }
- 
-   .btn {
-        .user-style;
-        display: inline-block;
-        border: none;
-    }
 
+    .user-info-box {
+        max-width: 400px;
+        margin-bottom: 10px;
+        .user-info {
+            .pill-style;
+        }
+    }
+ 
     .new-user-input {
         padding: 3px 5px;
         border-radius: 2px;
@@ -99,13 +112,11 @@ ul {
 li.thread {
     display: flex;
     justify-content: space-between;
-    /*border-bottom: 1px dashed #333;*/
     box-shadow: 1px 1px 1px 1px @color_shadow;
     background-color: @color_panel;
     margin: 8px 0px;
     padding: 12px;
     border-radius: 5px;
-    list-style: none;
 
     .left-side {
         display: flex;
@@ -128,7 +139,7 @@ li.thread {
     }
 
     .authors {
-        .user-style;
+        .pill-style;
         padding: 0 5px 2px 5px;
         border-radius: 2px;
         span {

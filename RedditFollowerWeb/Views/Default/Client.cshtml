@@ -16,11 +16,11 @@
                 <div id="user-list-root">
                     <ul class="users">
                         <li class="user">
-                            No users selected
+                            Loading...
                         </li>
                     </ul>
                 </div>
-                <div id="user-info-root"></div>
+                <div id="user-info-box-root"></div>
 
                 @*<input type="text" value="" />*@
                 @*<div class="add-user-btn">Add User</div>*@
@@ -28,17 +28,32 @@
                 <div id="load-button-root">
                     <div class="btn">Loading...</div>
                 </div>
+                <div id="add-user-button-root">
+                    <div class="btn">Loading...</div>
+                </div>
             </div>
             <div id="thread-list-root"></div>
         </div>
-        <script src="@Url.Content("~/Content/js/react.min.js")"></script>
-        <script src="@Url.Content("~/Content/js/react-dom.min.js")"></script>
-        <script src="@Url.Content("~/Content/js/_Helpers.js")"></script>
-        <script src="@Url.Content("~/Content/js/_FollowerApi.js")"></script>
-        <script src="@Url.Content("~/Content/js/_Observer.js")"></script>
-        <script src="@Url.Content("~/Content/js/_UserModel.js")"></script>
-        <script src="@Url.Content("~/Content/js/_ThreadModel.js")"></script>
-        <script src="@Url.Content("~/Content/js/_Components.jsx")"></script>
-        <script src="@Url.Content("~/Content/js/_Events.jsx")"></script>
+        @* Load React *@
+        <script src="@Url.Content("~/Content/js/React/react.min.js")"></script>
+        <script src="@Url.Content("~/Content/js/React/react-dom.min.js")"></script>
+        @* Load Services *@
+        <script src="@Url.Content("~/Content/js/Services/_Helpers.js")"></script>
+        <script src="@Url.Content("~/Content/js/Services/_FollowerApi.js")"></script>
+        <script src="@Url.Content("~/Content/js/Services/_Observer.js")"></script>
+        @* Load Models *@
+        <script src="@Url.Content("~/Content/js/Models/_UserModel.js")"></script>
+        <script src="@Url.Content("~/Content/js/Models/_ThreadModel.js")"></script>
+        <script src="@Url.Content("~/Content/js/Models/_LoadingButtonModel.js")"></script>
+        <script src="@Url.Content("~/Content/js/Models/_UserInfoModel.js")"></script>
+        @* Load View *@
+        <script src="@Url.Content("~/Content/js/View/_Components.js")"></script>
+        @* Load Controllers *@
+        <script src="@Url.Content("~/Content/js/Controllers/_ApiController.js")"></script>
+        <script src="@Url.Content("~/Content/js/Controllers/_UIController.js")"></script>
+        <script src="@Url.Content("~/Content/js/Controllers/_ModelUpdateController.js")"></script>
+        @* Load Initialization *@
+        <script src="@Url.Content("~/Content/js/_Routing.js")"></script>
+        <script src="@Url.Content("~/Content/js/_Init.js")"></script>
     </body>
 </html>
