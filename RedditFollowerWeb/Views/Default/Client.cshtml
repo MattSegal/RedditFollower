@@ -9,44 +9,35 @@
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/css/style.min.css")">
     </head>
-    <body>
-        <div class="content">
-            <h3>Links from Interesting People</h3>            
+<body>
+    <div class="content">
+        <h3>Links from Interesting People</h3>
+        <div id="app-root">
             <div class="dashboard">
-                <div id="user-list-root">
-                    <ul class="users">
-                        <li class="user">
-                            Loading...
-                        </li>
+                <ul class="users">
+                    <li class="user">
+                        Loading...
+                    </li>
                     </ul>
-                </div>
-                <div id="user-info-box-root"></div>
-                <div id="dashbutton-root">
-                    <div class="btn">Loading...</div>
-                </div>
+                <div class="btn">Loading...</div>
             </div>
-            <div id="thread-list-root"></div>
         </div>
-        @* Load React *@
-        <script src="@Url.Content("~/Content/js/React/react.min.js")"></script>
-        <script src="@Url.Content("~/Content/js/React/react-dom.min.js")"></script>
-        @* Load Services *@
-        <script src="@Url.Content("~/Content/js/Services/_Helpers.js")"></script>
-        <script src="@Url.Content("~/Content/js/Services/_FollowerApi.js")"></script>
-        <script src="@Url.Content("~/Content/js/Services/_Observer.js")"></script>
-        @* Load Models *@
-        <script src="@Url.Content("~/Content/js/Models/_UserModel.js")"></script>
-        <script src="@Url.Content("~/Content/js/Models/_ThreadModel.js")"></script>
-        <script src="@Url.Content("~/Content/js/Models/_LoadingButtonModel.js")"></script>
-        <script src="@Url.Content("~/Content/js/Models/_UserInfoModel.js")"></script>
-        @* Load View *@
-        <script src="@Url.Content("~/Content/js/View/_Components.js")"></script>
-        @* Load Controllers *@
-        <script src="@Url.Content("~/Content/js/Controllers/_ApiController.js")"></script>
-        <script src="@Url.Content("~/Content/js/Controllers/_UIController.js")"></script>
-        <script src="@Url.Content("~/Content/js/Controllers/_ModelUpdateController.js")"></script>
-        @* Load Initialization *@
-        <script src="@Url.Content("~/Content/js/_Routing.js")"></script>
-        <script src="@Url.Content("~/Content/js/_Init.js")"></script>
-    </body>
+    </div>
+    @* Load React *@
+    @*<script src="@Url.Content("~/Content/js/React/react.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/React/react-dom.min.js")"></script>*@
+    <script src="https://fb.me/react-15.2.1.js"></script>
+    <script src="https://fb.me/react-dom-15.2.1.js"></script>
+    @* Load Services *@
+    <script src="@Url.Content("~/Content/js/Services/_Helpers.js")"></script>
+    <script src="@Url.Content("~/Content/js/Services/_FollowerApi.js")"></script>
+    <script src="@Url.Content("~/Content/js/Services/_ApiService.js")"></script>
+    @* Load Models *@
+    <script src="@Url.Content("~/Content/js/Models/_UserModel.js")"></script>
+    <script src="@Url.Content("~/Content/js/Models/_ThreadModel.js")"></script>
+    @* Load View *@
+    <script src="@Url.Content("~/Content/js/View/_Components.js")"></script>
+    @* Load Initialization *@
+    <script src="@Url.Content("~/Content/js/_Init.js")"></script>
+</body>
 </html>

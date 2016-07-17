@@ -10,9 +10,6 @@ var UserModel = {
     usernames: function () {
         return Object.keys(this._users)
     },
-    _publishUpdate: function() {
-        Observer.publish("UserModelUpdate")
-    },
     toArray: function () {
         return this.usernames()
             .map((key) => this._users[key])
@@ -23,12 +20,10 @@ var UserModel = {
     },
     updateUser: function (userObj) {
         this._updateUser(userObj)
-        this._publishUpdate()
     },
     updateUsers: function (userObjList) {
         userObjList.forEach((userObj) =>
             this._updateUser(userObj))
-        this._publishUpdate()
     },
     _addNewUser: function(username) {
         var newUser = {
@@ -41,16 +36,13 @@ var UserModel = {
     },
     addNewUser: function (username) {
         this._addNewUser(username)
-        this._publishUpdate()
     },
     addNewUsers: function (usernames) {
         usernames.forEach((username) => this._addNewUser(username))
-        this._publishUpdate()
     },
     removeUser: function (username) {
         if (this.userExists(username)) {
             delete this._users[username]
-            this._publishUpdate()
         } else {
             console.warn("UserModel: no such user as " + username)
         }
@@ -65,7 +57,6 @@ var UserModel = {
         for (var key in this.usernames()) {
             this._users[key].isSuccess = false
         }
-        this._publishUpdate()
     },
     userExists: function(username) {
         return this.usernames().contains(username)

@@ -7,4 +7,4 @@ var defaultUsers = [
 UserModel.addNewUsers(defaultUsers)
 
 // Initial render.
-ModelUpdateController._renderDashbuttons()
+ReactDOM.render(React.createElement(View, null), document.getElementById("app-root"));

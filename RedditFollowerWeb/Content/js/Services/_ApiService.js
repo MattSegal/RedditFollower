@@ -1,4 +1,4 @@
-﻿var ApiController = {
+﻿var ApiService = {
 
     onSuccessfulApiResponse: function (response) {
         UserModel.updateUsers(response["users"])
