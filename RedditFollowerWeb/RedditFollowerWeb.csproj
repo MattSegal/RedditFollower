@@ -162,19 +162,8 @@
     <Content Include="Content\css\style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
-    <Content Include="Content\js\Controllers\_ModelUpdateController.js">
-      <DependentUpon>_ModelUpdateController.jsx</DependentUpon>
-    </Content>
-    <Content Include="Content\js\Controllers\_ModelUpdateController.min.js">
-      <DependentUpon>_ModelUpdateController.js</DependentUpon>
-    </Content>
     <Content Include="Content\js\_Init.js" />
-    <Content Include="Content\js\Models\_UserInfoModel.js" />
-    <Content Include="Content\js\Models\_LoadingButtonModel.js" />
-    <Content Include="Content\js\Controllers\_UIController.js" />
-    <Content Include="Content\js\Controllers\_ApiController.js" />
-    <None Include="Content\js\Controllers\_ModelUpdateController.jsx" />
-    <Content Include="Content\js\_Routing.js" />
+    <Content Include="Content\js\Services\_ApiService.js" />
     <Content Include="Content\js\React\react-dom.min.js" />
     <Content Include="Content\js\React\react.min.js" />
     <Content Include="Content\js\View\_Components.js">
@@ -185,7 +174,6 @@
     </Content>
     <Content Include="Content\js\Services\_FollowerApi.js" />
     <Content Include="Content\js\Services\_Helpers.js" />
-    <Content Include="Content\js\Services\_Observer.js" />
     <Content Include="Content\js\Models\_ThreadModel.js" />
     <Content Include="Content\js\Models\_UserModel.js" />
     <Content Include="Content\less\_constants.css">
@@ -230,6 +218,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\js\Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedditFollowerCommon\RedditFollowerCommon.csproj">
