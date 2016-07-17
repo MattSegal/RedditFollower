@@ -74,6 +74,7 @@ input {
   user-select: none;
   display: inline-block;
   border: none;
+  margin-right: 5px;
 }
 .dashboard .btn:hover {
   background-color: #ddd;
@@ -81,7 +82,7 @@ input {
 }
 .dashboard .users {
   display: inline-block;
-  margin: 0 0 10px 0;
+  margin-bottom: 10px;
 }
 .dashboard .users .user {
   color: #444;
@@ -125,15 +126,21 @@ input {
   background-color: #fbb;
 }
 .dashboard .user-info-box {
-  max-width: 400px;
-  margin-bottom: 10px;
-}
-.dashboard .user-info-box .user-info {
   color: #444;
   padding: 3px 5px;
   border: 1px #eee inset;
   background-color: #eee;
   border-radius: 2px;
+  background-color: #f5f5f5;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+.dashboard .user-info-box .user-info {
+  padding: 3px 0px;
+}
+.dashboard .user-info-box .user-info span {
+  display: inline-block;
+  width: 100px;
 }
 .dashboard .new-user-input {
   padding: 3px 5px;

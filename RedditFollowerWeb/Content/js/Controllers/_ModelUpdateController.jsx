@@ -14,17 +14,21 @@
         )
     },
     onLoadingModelUpdate: function () {
-        var text = LoadingButtonModel.displayText
-        ReactDOM.render( // it would be cool to animate this
-            <LoadButton content={text } />,
-            document.getElementById("load-button-root")
-        )
+        ModelUpdateController._renderDashbuttons() // lame
     },
     onAddUserModelUpdate: function () {
-        ReactDOM.render(
-            <AddUserButton />,
-            document.getElementById("add-user-button-root")
-        )
+        ModelUpdateController._renderDashbuttons() // lame
+        if (AddUserButtonModel.isInDialogue) {
+            ReactDOM.render(
+                <AddUserBox/>,
+                document.getElementById("user-info-box-root")
+            )
+        } else {
+            ReactDOM.render(
+                <EmptyBox/>,
+                document.getElementById("user-info-box-root")
+            )
+        }
     },
     onUserInfoModelUpdate: function () {
         var username = UserInfoModel.currentUser
@@ -33,5 +37,13 @@
             <UserInfoBox user={user } />,
             document.getElementById("user-info-box-root")
         )
-    }
+    },
+    _renderDashbuttons: function () {
+        var loadButtonText = LoadingButtonModel.displayText
+        var showAddUser = AddUserButtonModel.isInDashbuttons
+        ReactDOM.render(
+            <DashboardButtons loadButtonText={loadButtonText} showAddUser={showAddUser} />,
+            document.getElementById("dashbutton-root")
+        )
+    },
 }

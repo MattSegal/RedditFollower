@@ -1,4 +1,13 @@
 ﻿// User List
+var EmptyBox = React.createClass({
+    render: function () {
+        return (
+            <div></div>
+        )
+    }
+});
+
+// User List
 var UserList = React.createClass({
     render: function () {
         var userEntries = this.props.userList.map((user) => <UserEntry key={user.UserId} user={user}/>)
@@ -31,18 +40,20 @@ var UserInfoBox = React.createClass({
                 <div></div>
             )
         }
+        var removeUserStyle = {margin: "5px"}
         var status = this.getUserStatus(user.HttpCode)
         return (
             <ul className="user-info-box">
                 <li className="user-info">
-                    User Id: {user.UserId}
+                    <span>User Id:</span>{user.UserId}
                 </li>
                 <li className="user-info">
-                    Username: {user.Username}
+                    <span>Username:</span>{user.Username}
                 </li>
                 <li className="user-info">
-                    Load Status: {status}
+                    <span>Load Status:</span>{status}
                 </li>
+                <DashboardButton id="remove-user-button" content="Remove User" eventName="RemoveUserClick" style={removeUserStyle} />
             </ul>
         )
     },
@@ -60,7 +71,9 @@ var UserInfoBox = React.createClass({
 // Thread List
 var ThreadList = React.createClass({
     render: function () {
-        var threads = this.props.threadList.map((thread) => <ThreadEntry key={thread.RedditThreadId} thread={thread }/>)
+        var threads = this.props.threadList
+            .sort((a,b) => a.CreatedUtc - b.CreatedUtc)
+            .map((thread) => <ThreadEntry key={thread.RedditThreadId} thread={thread }/>)
     return (
         <ul>
             {threads}
@@ -99,14 +112,27 @@ var ThreadAuthor = React.createClass({
     )}
 });
 
+var AddUserBox = React.createClass({
+    render: function () {
+        return (
+            <div className="user-info-box">
+                <input id="new-user-name" type="text" placeholder="Enter username here." />
+                <DashboardButton id="add-user-button" content="Add User" style={{}} eventName="AddUserButtonClick" />
+                <DashboardButton id="cancel-add-user-button" content="Cancel" style={{}} eventName="CancelAddUserButtonClick" />
+            </div>
+        )
+}
+})
+
+
 var DashboardButtons = React.createClass({
     render: function () {
-        var loadButtonText = LoadingButtonModel.displayText
-        var addUserHidden = false
+        var loadButtonText = this.props.loadButtonText
+        var addUserButtonStyle = this.props.showAddUser ? {} : {display: "none"}
         return (
             <div>
                 <DashboardButton id="load-button" content={loadButtonText} eventName="LoadButtonClick" />
-                <DashboardButton id="add-user-button" content="Add User" eventName="AddUserButtonClick" />
+                <DashboardButton id="add-user-button" content="Add User" style={addUserButtonStyle} eventName="AddUserButtonClick" />
             </div>
         )
     }
@@ -122,44 +148,8 @@ class DashboardButton extends React.Component {
     }
     render() {
         return (
-            <div onClick={this.handleClick} className="btn">
+            <div onClick={this.handleClick} className="btn" style={this.props.style}>
             {this.props.content}
-            </div>
-        )
-    }
-}
-
-// Load From Api Button
-class LoadButton extends React.Component {
-    constructor() {
-        super()
-        this.handleClick = this.handleClick.bind(this)
-    }
-    handleClick() {
-        Observer.publish("LoadButtonClick")
-    }
-    render() {
-        return (
-            <div onClick={this.handleClick} className="btn">
-                {this.props.content}
-            </div>
-        )
-    }
-}
-
-// Add User Button
-class AddUserButton extends React.Component {
-    constructor() {
-        super()
-        this.handleClick = this.handleClick.bind(this)
-    }
-    handleClick() {
-        Observer.publish("AddUserButtonClick")
-    }
-    render() {
-        return (
-            <div onClick={this.handleClick} className="btn">
-                Add User
             </div>
         )
     }

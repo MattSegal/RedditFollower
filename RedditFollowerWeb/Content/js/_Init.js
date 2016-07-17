@@ -7,4 +7,4 @@ var defaultUsers = [
 UserModel.addNewUsers(defaultUsers)
 
 // Initial render.
-LoadingButtonModel._publishUpdate()
+ModelUpdateController._renderDashbuttons()

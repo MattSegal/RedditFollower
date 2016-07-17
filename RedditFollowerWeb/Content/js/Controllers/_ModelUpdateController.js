@@ -10,17 +10,25 @@ var ModelUpdateController = {
         ReactDOM.render(React.createElement(ThreadList, { threadList: threadList }), document.getElementById("thread-list-root"));
     },
     onLoadingModelUpdate: function onLoadingModelUpdate() {
-        var text = LoadingButtonModel.displayText;
-        ReactDOM.render( // it would be cool to animate this
-        React.createElement(LoadButton, { content: text }), document.getElementById("load-button-root"));
+        ModelUpdateController._renderDashbuttons(); // lame
     },
     onAddUserModelUpdate: function onAddUserModelUpdate() {
-        ReactDOM.render(React.createElement(AddUserButton, null), document.getElementById("add-user-button-root"));
+        ModelUpdateController._renderDashbuttons(); // lame
+        if (AddUserButtonModel.isInDialogue) {
+            ReactDOM.render(React.createElement(AddUserBox, null), document.getElementById("user-info-box-root"));
+        } else {
+            ReactDOM.render(React.createElement(EmptyBox, null), document.getElementById("user-info-box-root"));
+        }
     },
     onUserInfoModelUpdate: function onUserInfoModelUpdate() {
         var username = UserInfoModel.currentUser;
         var user = UserModel.userExists(username) ? UserModel.getUser(username) : null;
         ReactDOM.render(React.createElement(UserInfoBox, { user: user }), document.getElementById("user-info-box-root"));
+    },
+    _renderDashbuttons: function _renderDashbuttons() {
+        var loadButtonText = LoadingButtonModel.displayText;
+        var showAddUser = AddUserButtonModel.isInDashbuttons;
+        ReactDOM.render(React.createElement(DashboardButtons, { loadButtonText: loadButtonText, showAddUser: showAddUser }), document.getElementById("dashbutton-root"));
     }
 };
 

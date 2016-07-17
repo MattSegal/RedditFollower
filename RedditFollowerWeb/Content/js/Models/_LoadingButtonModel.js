@@ -15,3 +15,25 @@
         Observer.publish("LoadingModelUpdate")
     },
 }
+
+var AddUserButtonModel = {
+    isInDashbuttons: true,
+    openAddUserDialogue: function () {
+        this.isInDashbuttons = false
+        this.isInDialogue = this.isInDashbuttons ? false : true
+        this._publishUpdate()
+    },
+    closeAddUserDialogue: function () {
+        this.isInDashbuttons = true
+        this.isInDialogue = this.isInDashbuttons ? false : true
+        this._publishUpdate()
+    },
+    hide: function() {
+        this.isInDashbuttons = false
+        this.isInDialogue = false
+        this._publishUpdate()
+    },
+    _publishUpdate: function () {
+        Observer.publish("AddUserModelUpdate")
+    },
+}

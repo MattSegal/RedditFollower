@@ -1,6 +1,9 @@
 ﻿FollowerApi = {
-    call : (userList, successCallback, failureCallback) => {
-        // Actually a POST request ¯\_(ツ)_/¯
+    call: (userList, successCallback, failureCallback) => {
+        if (userList.length === 0) {
+            successCallback({ users: [], threads: [] })
+            return
+        }
         uri = "http://localhost/redditfollowerapi/reddit/threads"
         method = 'POST'
         console.log("Querying follower api...")

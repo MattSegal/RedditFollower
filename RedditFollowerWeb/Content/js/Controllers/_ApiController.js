@@ -12,6 +12,7 @@
     },
 
     onLoadingComplete: function () {
+        AddUserButtonModel.closeAddUserDialogue()
         LoadingButtonModel.stopLoading()
     },
 

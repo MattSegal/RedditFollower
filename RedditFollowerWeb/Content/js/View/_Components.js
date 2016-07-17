@@ -9,6 +9,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var EmptyBox = React.createClass({
+    displayName: "EmptyBox",
+
+    render: function render() {
+        return React.createElement("div", null);
+    }
+});
+
+// User List
 var UserList = React.createClass({
     displayName: "UserList",
 
@@ -50,6 +59,7 @@ var UserInfoBox = React.createClass({
         if (user == null) {
             return React.createElement("div", null);
         }
+        var removeUserStyle = { margin: "5px" };
         var status = this.getUserStatus(user.HttpCode);
         return React.createElement(
             "ul",
@@ -57,21 +67,34 @@ var UserInfoBox = React.createClass({
             React.createElement(
                 "li",
                 { className: "user-info" },
-                "User Id: ",
+                React.createElement(
+                    "span",
+                    null,
+                    "User Id:"
+                ),
                 user.UserId
             ),
             React.createElement(
                 "li",
                 { className: "user-info" },
-                "Username: ",
+                React.createElement(
+                    "span",
+                    null,
+                    "Username:"
+                ),
                 user.Username
             ),
             React.createElement(
                 "li",
                 { className: "user-info" },
-                "Load Status: ",
+                React.createElement(
+                    "span",
+                    null,
+                    "Load Status:"
+                ),
                 status
-            )
+            ),
+            React.createElement(DashboardButton, { id: "remove-user-button", content: "Remove User", eventName: "RemoveUserClick", style: removeUserStyle })
         );
     },
     getUserStatus: function getUserStatus(httpCode) {
@@ -90,7 +113,9 @@ var ThreadList = React.createClass({
     displayName: "ThreadList",
 
     render: function render() {
-        var threads = this.props.threadList.map(function (thread) {
+        var threads = this.props.threadList.sort(function (a, b) {
+            return a.CreatedUtc - b.CreatedUtc;
+        }).map(function (thread) {
             return React.createElement(ThreadEntry, { key: thread.RedditThreadId, thread: thread });
         });
         return React.createElement(
@@ -156,17 +181,31 @@ var ThreadAuthor = React.createClass({
     }
 });
 
+var AddUserBox = React.createClass({
+    displayName: "AddUserBox",
+
+    render: function render() {
+        return React.createElement(
+            "div",
+            { className: "user-info-box" },
+            React.createElement("input", { id: "new-user-name", type: "text", placeholder: "Enter username here." }),
+            React.createElement(DashboardButton, { id: "add-user-button", content: "Add User", style: {}, eventName: "AddUserButtonClick" }),
+            React.createElement(DashboardButton, { id: "cancel-add-user-button", content: "Cancel", style: {}, eventName: "CancelAddUserButtonClick" })
+        );
+    }
+});
+
 var DashboardButtons = React.createClass({
     displayName: "DashboardButtons",
 
     render: function render() {
-        var loadButtonText = LoadingButtonModel.displayText;
-        var addUserHidden = false;
+        var loadButtonText = this.props.loadButtonText;
+        var addUserButtonStyle = this.props.showAddUser ? {} : { display: "none" };
         return React.createElement(
             "div",
             null,
             React.createElement(DashboardButton, { id: "load-button", content: loadButtonText, eventName: "LoadButtonClick" }),
-            React.createElement(DashboardButton, { id: "add-user-button", content: "Add User", eventName: "AddUserButtonClick" })
+            React.createElement(DashboardButton, { id: "add-user-button", content: "Add User", style: addUserButtonStyle, eventName: "AddUserButtonClick" })
         );
     }
 });
@@ -181,8 +220,6 @@ var DashboardButton = (function (_React$Component) {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    // Load From Api Button
-
     _createClass(DashboardButton, [{
         key: "handleClick",
         value: function handleClick() {
@@ -193,72 +230,12 @@ var DashboardButton = (function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "div",
-                { onClick: this.handleClick, className: "btn" },
+                { onClick: this.handleClick, className: "btn", style: this.props.style },
                 this.props.content
             );
         }
     }]);
 
     return DashboardButton;
-})(React.Component);
-
-var LoadButton = (function (_React$Component2) {
-    _inherits(LoadButton, _React$Component2);
-
-    function LoadButton() {
-        _classCallCheck(this, LoadButton);
-
-        _get(Object.getPrototypeOf(LoadButton.prototype), "constructor", this).call(this);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    // Add User Button
-
-    _createClass(LoadButton, [{
-        key: "handleClick",
-        value: function handleClick() {
-            Observer.publish("LoadButtonClick");
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
-                { onClick: this.handleClick, className: "btn" },
-                this.props.content
-            );
-        }
-    }]);
-
-    return LoadButton;
-})(React.Component);
-
-var AddUserButton = (function (_React$Component3) {
-    _inherits(AddUserButton, _React$Component3);
-
-    function AddUserButton() {
-        _classCallCheck(this, AddUserButton);
-
-        _get(Object.getPrototypeOf(AddUserButton.prototype), "constructor", this).call(this);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    _createClass(AddUserButton, [{
-        key: "handleClick",
-        value: function handleClick() {
-            Observer.publish("AddUserButtonClick");
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
-                { onClick: this.handleClick, className: "btn" },
-                "Add User"
-            );
-        }
-    }]);
-
-    return AddUserButton;
 })(React.Component);
 

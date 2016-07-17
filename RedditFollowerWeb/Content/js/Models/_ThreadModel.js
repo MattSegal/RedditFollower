@@ -6,8 +6,9 @@
     _publishUpdate: function () {
         Observer.publish("ThreadModelUpdate")
     },
-    toArray: function() {
+    toArray: function(userList) {
         return this.threadIds()
+            // map only threads with current users
             .map((id) => this._threads[id])
     },
     _updateThread: function (threadObj) {
