@@ -13,5 +13,17 @@
   {
     "outputFile": "Content/js/Controllers/_ModelUpdateController.js",
     "inputFile": "Content/js/Controllers/_ModelUpdateController.jsx"
+  },
+  {
+    "outputFile": "Content/js/View/_ThreadComponents.js",
+    "inputFile": "Content/js/View/_ThreadComponents.jsx"
+  },
+  {
+    "outputFile": "Content/js/View/_DashComponents.js",
+    "inputFile": "Content/js/View/_DashComponents.jsx"
+  },
+  {
+    "outputFile": "Content/js/View/_UserComponents.js",
+    "inputFile": "Content/js/View/_UserComponents.jsx"
   }
 ]

@@ -49,7 +49,6 @@ namespace RedditFollowerApi.Controllers
                         UserId = userId++,
                         HttpCode = errorCode,
                         Username = user,
-                        isSuccess = errorCode == 200
                     });
                 }
             }

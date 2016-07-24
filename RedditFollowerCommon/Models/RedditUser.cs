@@ -6,6 +6,5 @@ namespace RedditFollowerCommon.Models
         public int UserId;
         public string Username;
         public int HttpCode;
-        public bool isSuccess;
     }
 }

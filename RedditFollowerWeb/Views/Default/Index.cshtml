@@ -6,57 +6,31 @@
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/css/style.min.css")">
     </head>
-    <body>
-        <div class="content">
-            <h3>Links from Interesting People</h3>
-            <div class="user-select">
-                <ul class="users">
-                    <li class="user">John</li>
-                    <li class="user">Dick</li>
-                    <li class="user">Harry</li>
-                </ul>
-
-                <input type="text" value="" />
-                <div class="add-user-btn">Add User</div>
-                <div class="add-user-btn">Cancel</div>
+<body>
+    <div class="content">
+        <h3>Links from Interesting People</h3>
+        <div id="app-root">
+            <div class="dash-panel">
+                <div class="btn neutral">Loading...</div>
             </div>
-
-            @* Need to get this from the API somehow *@
-            @if (ViewBag.FailedUsers.Count > 0)
-            {
-                <ul>
-                    @foreach (RedditUser failedUser in ViewBag.FailedUsers)
-                    {
-                    <li class="failed-user">
-                        <span class="failed-user-name">@failedUser.Username</span>
-                        <span class="failed-user-code">@failedUser.HttpCode</span>
-                    </li>
-                    }
-                </ul>
-            }
-            <ul>
-                @foreach (RedditThread thread in ViewBag.Threads)
-                {
-                <li class="thread">
-                    <div class="left-side">
-                        <a href="@thread.Url">@thread.Title</a>
-                        <div class="authors">
-                            @foreach (string author in thread.CommentAuthors)
-                            {
-                                <span>@author</span>
-                            }
-                        </div>
-                    </div>
-                    <div class="right-side">
-                        <div class="subreddit">
-                            <a href="http://www.reddit.com/r/@thread.Subreddit">
-                                @thread.Subreddit
-                            </a>
-                        </div>
-                    </div>
-                </li>
-                }
-            </ul>
         </div>
-    </body>
+    </div>
+    @* Load React *@
+    @*<script src="@Url.Content("~/Content/js/React/react.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/React/react-dom.min.js")"></script>*@
+    <script src="https://fb.me/react-15.2.1.js"></script>
+    <script src="https://fb.me/react-dom-15.2.1.js"></script>
+    @* Load Services *@
+    <script src="@Url.Content("~/Content/js/Services/_Helpers.js")"></script>
+    <script src="@Url.Content("~/Content/js/Services/_FollowerApi.js")"></script>
+    @* Load Models *@
+    <script src="@Url.Content("~/Content/js/Models/_Enums.js")"></script>
+    <script src="@Url.Content("~/Content/js/Models/_UserModel.js")"></script>
+    <script src="@Url.Content("~/Content/js/Models/_ThreadModel.js")"></script>
+    @* Load View *@
+    <script src="@Url.Content("~/Content/js/View/_ThreadComponents.js")"></script>
+    <script src="@Url.Content("~/Content/js/View/_UserComponents.js")"></script>
+    <script src="@Url.Content("~/Content/js/View/_DashComponents.js")"></script>
+    <script src="@Url.Content("~/Content/js/View/_Components.js")"></script>
+</body>
 </html>

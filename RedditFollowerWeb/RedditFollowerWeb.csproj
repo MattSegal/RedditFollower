@@ -158,12 +158,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app\all.min.js" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
-    <Content Include="Content\js\_Init.js" />
-    <Content Include="Content\js\Services\_ApiService.js" />
+    <Content Include="Content\js\View\_DashComponents.js">
+      <DependentUpon>_DashComponents.jsx</DependentUpon>
+    </Content>
+    <Content Include="Content\js\View\_DashComponents.min.js">
+      <DependentUpon>_DashComponents.js</DependentUpon>
+    </Content>
+    <Content Include="Content\js\View\_ThreadComponents.js">
+      <DependentUpon>_ThreadComponents.jsx</DependentUpon>
+    </Content>
+    <Content Include="Content\js\View\_ThreadComponents.min.js">
+      <DependentUpon>_ThreadComponents.js</DependentUpon>
+    </Content>
+    <Content Include="Content\js\View\_UserComponents.js">
+      <DependentUpon>_UserComponents.jsx</DependentUpon>
+    </Content>
+    <Content Include="Content\js\View\_UserComponents.min.js">
+      <DependentUpon>_UserComponents.js</DependentUpon>
+    </Content>
+    <Content Include="Content\less\gulpfile.js" />
+    <Content Include="Content\js\Models\_Enums.js" />
     <Content Include="Content\js\React\react-dom.min.js" />
     <Content Include="Content\js\React\react.min.js" />
     <Content Include="Content\js\View\_Components.js">
@@ -198,17 +217,18 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Content\less\style.less" />
     <Content Include="Content\less\_constants.less" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\js\View\_DashComponents.jsx" />
+    <Content Include="Content\js\View\_ThreadComponents.jsx" />
+    <Content Include="Content\js\View\_UserComponents.jsx" />
     <None Include="Properties\PublishProfiles\reddit.pubxml" />
-    <Content Include="Views\Default\Client.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
     <None Include="Content\js\View\_Components.jsx" />
-    <Content Include="Views\Default\ReactTute.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

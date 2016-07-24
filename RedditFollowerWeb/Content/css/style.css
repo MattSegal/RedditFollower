@@ -1,14 +1,24 @@
-﻿html,
+﻿* {
+  /*outline: 1px solid red;*/
+}
+html,
 body {
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+html,
+body {
   background-color: #ddd;
   font-family: 'Droid Serif', serif;
-}
-* {
-  /*outline: 1px solid red;*/
 }
 .content {
   max-width: 1000px;
@@ -21,12 +31,47 @@ h3 {
   margin: 0 0 30px 0;
   text-align: center;
 }
-ul {
-  margin: 0;
-  padding: 0;
+.neutral {
+  color: #444;
+  background-color: #eee;
 }
-li {
-  list-style: none;
+.neutral:hover {
+  background-color: #ddd;
+}
+.danger {
+  background-color: #d88;
+  color: #fff;
+}
+.danger:hover {
+  background-color: #d88;
+}
+.happy {
+  background-color: #88d;
+  color: #fff;
+}
+.happy:hover {
+  background-color: #88d;
+}
+.filtered {
+  background-color: #eb6;
+  color: #950;
+}
+.filtered:hover {
+  background-color: #eb6;
+}
+.success {
+  color: #446;
+  background-color: #dee;
+}
+.success:hover {
+  background-color: #dee;
+}
+.failure {
+  color: #a22;
+  background-color: #fdd;
+}
+.failure:hover {
+  background-color: #fbb;
 }
 .unselectable {
   -webkit-user-select: none;
@@ -34,27 +79,31 @@ li {
   -ms-user-select: none;
   user-select: none;
 }
+.cursor:hover {
+  cursor: pointer;
+}
 .authors,
 .subreddit,
 .user,
 input {
   font-family: 'Droid Serif', serif;
 }
-.panel-style {
+.panel {
   box-shadow: 1px 1px 1px 1px #999;
   background-color: #fff;
   margin: 8px 0px;
   padding: 12px;
   border-radius: 5px;
 }
-.pill-style {
-  color: #444;
-  padding: 3px 5px;
+.pill {
   border: 1px #eee inset;
-  background-color: #eee;
+  padding: 3px 5px;
   border-radius: 2px;
 }
-.dashboard {
+.hidden {
+  display: none;
+}
+.dash-panel {
   box-shadow: 1px 1px 1px 1px #999;
   background-color: #fff;
   margin: 8px 0px;
@@ -62,92 +111,75 @@ input {
   border-radius: 5px;
   font-size: 14px;
 }
-.dashboard .btn {
-  color: #444;
-  padding: 3px 5px;
+.btn {
   border: 1px #eee inset;
-  background-color: #eee;
+  padding: 3px 5px;
   border-radius: 2px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   display: inline-block;
+  box-sizing: border-box;
   border: none;
-  margin-right: 5px;
+  text-align: center;
+  margin: 0 5px 5px 0;
 }
-.dashboard .btn:hover {
-  background-color: #ddd;
+.btn:hover {
   cursor: pointer;
 }
-.dashboard .users {
-  display: inline-block;
-  margin-bottom: 10px;
+.dash-board {
+  display: flex;
+  word-wrap: break-word;
 }
-.dashboard .users .user {
-  color: #444;
-  padding: 3px 5px;
-  border: 1px #eee inset;
-  background-color: #eee;
-  border-radius: 2px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: inline-block;
-  border: none;
+.dash-buttons {
+  width: 120px;
+  flex-shrink: 0;
   margin-right: 5px;
 }
-.dashboard .users .user:hover {
-  background-color: #ddd;
-  cursor: pointer;
+.dash-buttons .btn {
+  background-color: #88d;
+  color: #fff;
+  width: 100%;
 }
-.dashboard .users .user-failure {
-  color: #444;
-  padding: 3px 5px;
+.dash-buttons .btn:hover {
+  background-color: #88d;
+}
+.info-box {
   border: 1px #eee inset;
-  background-color: #eee;
-  border-radius: 2px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: inline-block;
-  border: none;
-  margin-right: 5px;
-  color: #a22;
-  background-color: #fdd;
-}
-.dashboard .users .user-failure:hover {
-  background-color: #ddd;
-  cursor: pointer;
-}
-.dashboard .users .user-failure:hover {
-  background-color: #fbb;
-}
-.dashboard .user-info-box {
-  color: #444;
   padding: 3px 5px;
-  border: 1px #eee inset;
-  background-color: #eee;
   border-radius: 2px;
   background-color: #f5f5f5;
-  max-width: 400px;
-  margin-bottom: 10px;
+  padding: 8px;
+  margin: 10px 0 0 0;
 }
-.dashboard .user-info-box .user-info {
+.info-box .btn {
+  margin-bottom: 0;
+}
+.info-box-user .user-info {
   padding: 3px 0px;
 }
-.dashboard .user-info-box .user-info span {
+.info-box-user .user-info span {
   display: inline-block;
   width: 100px;
 }
-.dashboard .new-user-input {
+.info-box-add-user {
+  white-space: nowrap;
+}
+.info-box-add-user #new-user-input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 2em;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+.info-box-add-user .new-user-input {
   padding: 3px 5px;
   border-radius: 2px;
   border: #999 solid 1px;
 }
-li.thread {
+.thread {
   display: flex;
   justify-content: space-between;
   box-shadow: 1px 1px 1px 1px #999;
@@ -156,53 +188,104 @@ li.thread {
   padding: 12px;
   border-radius: 5px;
 }
-li.thread .left-side {
+.thread .left-side {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-li.thread .left-side a {
+.thread .left-side a {
   text-decoration: none;
   font-size: 15px;
   color: #000;
   margin: 0 5px 14px 0;
 }
-li.thread .left-side a:visited {
+.thread .left-side a:visited {
   color: #522;
 }
-li.thread .right-side {
+.thread .right-side {
   /*unused*/
 }
-li.thread .authors {
-  color: #444;
-  padding: 3px 5px;
+.thread .authors {
   border: 1px #eee inset;
+  padding: 3px 5px;
+  color: #444;
   background-color: #eee;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   padding: 0 5px 2px 5px;
   border-radius: 2px;
 }
-li.thread .authors span {
+.thread .authors:hover {
+  background-color: #ddd;
+}
+.thread .authors:hover {
+  cursor: pointer;
+}
+.thread .authors span {
   display: inline-block;
   font-size: 10px;
   line-height: 12px;
 }
-li.thread .authors span + span:before {
+.thread .authors span:hover {
+  font-weight: bold;
+}
+.thread .authors span + span:before {
   content: "| ";
   color: #000;
   font-size: 12px;
 }
-li.thread .subreddit {
+.thread .subreddit {
   border: 1px #dee inset;
   padding: 3px;
   border-radius: 3px;
   background-color: #dee;
 }
-li.thread .subreddit a {
+.thread .subreddit a {
   color: #446;
   font-size: 12px;
   text-decoration: none;
 }
-li.thread .subreddit a:visited,
-li.thread .subreddit a:active {
+.thread .subreddit a:visited,
+.thread .subreddit a:active {
   color: #446;
+}
+.thread .comment-list {
+  padding: 15px 0 0 0;
+}
+.thread .comment {
+  box-shadow: 1px 1px 1px 1px #999;
+  background-color: #fff;
+  margin: 8px 0px;
+  padding: 12px;
+  border-radius: 5px;
+  margin: 0 0 12px 0;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 1.9em;
+  color: #000;
+  background-color: #fafafa;
+}
+.thread .comment p {
+  margin: 0;
+}
+.thread .comment p.quote {
+  border-left: 2px solid  #999;
+  padding-left: 5px;
+}
+.thread .comment p + p {
+  margin-top: 8px;
+}
+.thread .comment .italic {
+  font-style: italic;
+}
+.thread .comment a {
+  color: #a3a;
+}
+.thread .comment a:hover {
+  cursor: pointer;
+}
+.thread .comment a:visited {
+  color: #a3a;
 }

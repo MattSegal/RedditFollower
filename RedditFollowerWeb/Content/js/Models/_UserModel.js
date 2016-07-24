@@ -1,10 +1,23 @@
-﻿/*
-A user has the fields: 
-    UserId       - This is implicitly generated client side by ordering of users
-    Username     - Reddit name of user
-    HttpCode     - Status code of last request
-    isSuccess    - Whether last request was successful
-*/
+﻿function RedditUser(userObj) {
+    this.UserId     = userObj.UserId, // generated client side, but also overwritten by api sortof
+    this.HttpCode   = userObj.HttpCode,
+    this.Username   = userObj.Username,
+    this.State      = this.getUserState(userObj)
+    }
+
+RedditUser.prototype.getUserState = function (userObj) {
+    var username = userObj.Username
+    var prevState = UserModel.userExists(username) ? UserModel.getUser(username).State : null
+    if (prevState === UserState.FILTERED) { return prevState }
+    if (userObj.HttpCode === null || userObj.HttpCode === undefined) {
+        return UserState.NOT_LOADED
+    } else if (userObj.HttpCode === 200) {
+        return UserState.LOADED
+    } else {
+        return UserState.FAILED
+    }
+} 
+
 var UserModel = {
     _users: {},
     usernames: function () {
@@ -14,48 +27,47 @@ var UserModel = {
         return this.usernames()
             .map((key) => this._users[key])
     },
-    _updateUser: function (userObj) {
-        var username = userObj.Username
-        this._users[username] = userObj
-    },
     updateUser: function (userObj) {
-        this._updateUser(userObj)
+        var username = userObj.Username
+        this._users[username] = new RedditUser(userObj)
     },
     updateUsers: function (userObjList) {
         userObjList.forEach((userObj) =>
-            this._updateUser(userObj))
+            this.updateUser(userObj))
     },
-    _addNewUser: function(username) {
+    addNewUser: function (username) {
+        if (this.usernames().contains(username)) {return}
         var newUser = {
             UserId: this.getNextUserId(),
-            isSuccess: true,
+            State: UserState.NOT_LOADED,
             HttpCode: null,
             Username: username
         }
-        this._updateUser(newUser)
-    },
-    addNewUser: function (username) {
-        this._addNewUser(username)
+        this.updateUser(newUser)
     },
     addNewUsers: function (usernames) {
-        usernames.forEach((username) => this._addNewUser(username))
+        usernames.forEach((username) => this.addNewUser(username))
     },
     removeUser: function (username) {
         if (this.userExists(username)) {
             delete this._users[username]
         } else {
-            console.warn("UserModel: no such user as " + username)
+            Logger.log("UserModel - removeUser -  no such user as " + username)
         }
     },
     getUser: function (username) {
         if (!this.userExists(username)) {
-            console.warn("UserModel: no such user as " + username)
+            Logger.log("UserModel - getUser - no such user as " + username)
         }
         return this._users[username]
     },
+    getUsers: function (userList) {
+        return this.toArray()
+            .filter((user)=> userList.contains(user.Username))
+    },
     setAllUsersToFailed: function () {
         for (var key in this.usernames()) {
-            this._users[key].isSuccess = false
+            this._users[key].State = UserState.FAILED
         }
     },
     userExists: function(username) {
@@ -65,7 +77,7 @@ var UserModel = {
         if (this.usernames().length == 0) {
             return 0
         } else {
-            return this.toArray()
+            return this.toArray(this.usernames())
                 .map((user) => user.UserId)
                 .reduce((a, b) => Math.max(a, b)) + 1
         }
