@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 using RedditFollower.Common.Logging;
 using RedditFollower.Common.Models;
+using System.Threading.Tasks;
 
 namespace RedditFollower.Api.Authentication
 {
@@ -18,40 +19,39 @@ namespace RedditFollower.Api.Authentication
 
         private static string _oAuthToken;
         private static DateTime _tokenExpiryTime;
+        private static readonly HttpClient _httpClient;
 
         static AuthRepository()
         {
+            _httpClient = new HttpClient();
             _tokenExpiryTime = DateTime.Now;
             _basicAuthHeader = ConfigurationManager.AppSettings.Get("BasicAuthHeader");
         }
 
-        public static string GetAuthToken()
+        public static async Task<string> GetAuthToken()
         {
             if (_tokenExpiryTime <= DateTime.Now || String.IsNullOrWhiteSpace(_oAuthToken))
             {
-                using (var client = new HttpClient())
+                var request = new HttpRequestMessage()
                 {
-                    var request = new HttpRequestMessage()
-                    {
-                        RequestUri = new Uri(_redditAuthUri),
-                        Method = HttpMethod.Post,
-                    };
-                    request.Headers.Authorization = AuthenticationHeaderValue.Parse(_basicAuthHeader);
-                    var formData = new Dictionary<string, string>()
+                    RequestUri = new Uri(_redditAuthUri),
+                    Method = HttpMethod.Post,
+                };
+                request.Headers.Authorization = AuthenticationHeaderValue.Parse(_basicAuthHeader);
+                var formData = new Dictionary<string, string>()
                 {
                     { "grant_type", "client_credentials" }
                 };
-                    request.Content = new FormUrlEncodedContent(formData);
-                    HttpResponseMessage response = client.SendAsync(request).Result;
-                    response.EnsureSuccessStatusCode();
-                    string responseBody = response.Content.ReadAsStringAsync().Result;
-                    AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(responseBody);
+                request.Content = new FormUrlEncodedContent(formData);
+                HttpResponseMessage response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
-                    _oAuthToken = authResponse.access_token;
-                    _tokenExpiryTime = _tokenExpiryTime.AddSeconds(authResponse.expires_in);
-                }
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(responseBody);
+
+                _oAuthToken = authResponse.access_token;
+                _tokenExpiryTime = _tokenExpiryTime.AddSeconds(authResponse.expires_in);
             }
-            //System.Diagnostics.Debug.WriteLine($"Auth Token: {_oAuthToken}");
             return _oAuthToken;            
         }
     }
