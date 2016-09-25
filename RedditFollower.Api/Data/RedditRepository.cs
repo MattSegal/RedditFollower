@@ -27,7 +27,7 @@ namespace RedditFollower.Api.Data
         public IEnumerable<RedditComment> GetRecentUserComments(string username)
         {
             // Build request.
-            int limit = 25; // Currently only gets last 25 comments
+            int limit = 25; // Currently only gets last 25 comments - up to 100 possible
             string requestUri = $"{_baseUri}user/{username}/comments?limit={limit}";
             
             var request = new HttpRequestMessage()

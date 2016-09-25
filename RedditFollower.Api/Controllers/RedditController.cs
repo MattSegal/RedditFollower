@@ -27,7 +27,7 @@ namespace RedditFollower.Api.Controllers
         /// or make these API calls asynchronous
         /// </summary>
         [HttpPost] // POST: api/reddit/threads
-        public JsonResult Threads(List<string> userNames)
+        public JsonResult Threads(IEnumerable<string> userNames)
         {
             // Get a list of comments from all users.
             List<RedditComment> comments = new List<RedditComment>();
@@ -35,7 +35,6 @@ namespace RedditFollower.Api.Controllers
             int userId = 0; // Pull from elsewhere if persistent data store used.
             foreach (string user in userNames)
             {
-                // Can rework this to get more or fewer comments later
                 _logger.Log($"Getting comments for {user}");
                 int errorCode = 200;
                 try
@@ -75,7 +74,8 @@ namespace RedditFollower.Api.Controllers
 
             var threads = _redditRepository
                 .GetThreadsById(threadIds)
-                .OrderByDescending(t => t.CreatedUtc);
+                .OrderByDescending(t => t.CreatedUtc)
+                .ToList();
 
             foreach (var thread in threads)
             {
@@ -83,6 +83,7 @@ namespace RedditFollower.Api.Controllers
                 var threadComments = comments
                     .Where(c => c.RedditLinkId == threadId)
                     .ToList();
+
                 thread.SetComments(threadComments);
             }
             
