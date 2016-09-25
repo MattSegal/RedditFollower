@@ -28,7 +28,7 @@ namespace RedditFollower.Api.Authentication
             _basicAuthHeader = ConfigurationManager.AppSettings.Get("BasicAuthHeader");
         }
 
-        public static async Task<string> GetAuthToken()
+        public async static Task<string> GetAuthTokenAsync()
         {
             if (_tokenExpiryTime <= DateTime.Now || String.IsNullOrWhiteSpace(_oAuthToken))
             {
@@ -46,7 +46,7 @@ namespace RedditFollower.Api.Authentication
                 HttpResponseMessage response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
                 response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
+                string responseBody = response.Content.ReadAsStringAsync().Result;
                 AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(responseBody);
 
                 _oAuthToken = authResponse.access_token;

@@ -34,11 +34,10 @@ namespace RedditFollower.Api.Data
 
             while (getCommentTasks.Count > 0)
             {
-                Task<string> finishedTask = await Task.WhenAny(getCommentTasks);
+                Task<string> finishedTask = await Task.WhenAny(getCommentTasks).ConfigureAwait(false);
                 getCommentTasks.Remove(finishedTask);
+                var responseBody = await finishedTask.ConfigureAwait(false);
 
-                // Parse response
-                var responseBody = finishedTask.Result;
                 JObject responseJson = (JObject)JsonConvert.DeserializeObject(responseBody);
 
                 foreach (JObject post in responseJson["data"]["children"])
@@ -63,13 +62,13 @@ namespace RedditFollower.Api.Data
                 RequestUri = new Uri(requestUri),
                 Method = HttpMethod.Get,
             };
-            await SetRequestAuth(request);
+            await SetRequestAuth(request).ConfigureAwait(false);
 
             // Get response.
-            HttpResponseMessage response = await _httpClient.SendAsync(request).ConfigureAwait(false);
+            HttpResponseMessage response = _httpClient.SendAsync(request).Result;//.ConfigureAwait(false);
 
             // Parse response.
-            var responseBody = await response.Content.ReadAsStringAsync();
+            var responseBody = response.Content.ReadAsStringAsync().Result;
             return responseBody;
         }
 
@@ -106,7 +105,7 @@ namespace RedditFollower.Api.Data
 
         private async Task SetRequestAuth(HttpRequestMessage request)
         {
-            string authToken = await AuthRepository.GetAuthToken();
+            string authToken = await AuthRepository.GetAuthTokenAsync().ConfigureAwait(false);
             request.Headers.Authorization = AuthenticationHeaderValue.Parse($"bearer {authToken}");
             request.Headers.Add("User-Agent", "Reddit-Bot");
         }
