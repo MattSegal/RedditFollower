@@ -15,43 +15,35 @@ namespace RedditFollower.Api.Data
 {
     public class RedditRepository
     {
-        public string _baseUri = "https://oauth.reddit.com/";
-        // Currently only gets last 25 comments
-        // It would be nice to get as many as we like
+        public readonly string _baseUri;
+        public readonly HttpClient _httpClient;
 
+        public RedditRepository()
+        { 
+            _httpClient = new HttpClient();
+            _baseUri = "https://oauth.reddit.com/";
+        }
 
-        public List<RedditComment> GetRecentUserComments(string username)
+        public IEnumerable<RedditComment> GetRecentUserComments(string username)
         {
-            string getUserCommentsUri = _baseUri+$"user/{username}/comments";
-            string authToken = AuthRepository.GetAuthToken();
-            string responseBody;
-            using (var client = new HttpClient())
+            // Build request.
+            int limit = 25; // Currently only gets last 25 comments
+            string requestUri = $"{_baseUri}user/{username}/comments?limit={limit}";
+            
+            var request = new HttpRequestMessage()
             {
-                // Build query string into URI.
-                var builder = new UriBuilder(getUserCommentsUri);
-                var query = HttpUtility.ParseQueryString(string.Empty);
-                query["limit"] = "25";
-                builder.Query = query.ToString();
-                
-                // Build request.
-                var request = new HttpRequestMessage()
-                {
-                    RequestUri = new Uri(builder.ToString()),
-                    Method = HttpMethod.Get,
-                };
-                request.Headers.Authorization = AuthenticationHeaderValue.Parse($"bearer {authToken}");
-                request.Headers.Add("User-Agent", "Reddit-Bot");
+                RequestUri = new Uri(requestUri),
+                Method = HttpMethod.Get,
+            };
+            SetRequestAuth(request);
 
-                // Get response.
-                HttpResponseMessage response = client.SendAsync(request).Result;
-                if (!response.IsSuccessStatusCode)
-                    throw new HttpException((int)response.StatusCode,$"Could not retrieve comments for {username}");
-    
-                responseBody = response.Content.ReadAsStringAsync().Result;
-            }
+            // Get response.
+            HttpResponseMessage response = _httpClient.SendAsync(request).Result;
+            if (!response.IsSuccessStatusCode)
+                throw new HttpException((int)response.StatusCode,$"Could not retrieve comments for {username}");
 
             // Parse response.
-            List<RedditComment> redditComments = new List<RedditComment>();
+            var responseBody = response.Content.ReadAsStringAsync().Result;
             JObject responseJson = (JObject)JsonConvert.DeserializeObject(responseBody);
 
             foreach (JObject post in responseJson["data"]["children"])
@@ -59,37 +51,30 @@ namespace RedditFollower.Api.Data
                 JObject postData = (JObject)post["data"];
                 RedditApiComment postCommentFromApi = (RedditApiComment)postData.ToObject(typeof(RedditApiComment));
                 RedditComment postComment = new RedditComment(postCommentFromApi);
-                redditComments.Add(postComment);
+                yield return postComment;
             }
-            return redditComments;
         }
 
-        public List<RedditThread> GetThreadsById(IEnumerable<string> threadIds)
+        public IEnumerable<RedditThread> GetThreadsById(IEnumerable<string> threadIds)
         {
+            // Build request.
+            int limit = 100;
             string names = String.Join<string>(",", threadIds);
-            string getThreadsUri = _baseUri + $"by_id/{names}?limit=100";
-
-            string authToken = AuthRepository.GetAuthToken();
-            string responseBody;
-            using (var client = new HttpClient())
+            string getThreadsUri = $"{_baseUri}by_id/{names}?limit={limit}";
+            
+            var request = new HttpRequestMessage()
             {
-                // Build request.
-                var request = new HttpRequestMessage()
-                {
-                    RequestUri = new Uri(getThreadsUri),
-                    Method = HttpMethod.Get,
-                };
-                request.Headers.Authorization = AuthenticationHeaderValue.Parse($"bearer {authToken}");
-                request.Headers.Add("User-Agent", "Reddit-Bot");
+                RequestUri = new Uri(getThreadsUri),
+                Method = HttpMethod.Get,
+            };
+            SetRequestAuth(request);
 
-                // Get response.
-                HttpResponseMessage response = client.SendAsync(request).Result;
-                response.EnsureSuccessStatusCode();
-                responseBody = response.Content.ReadAsStringAsync().Result;
-            }
+            // Get response.
+            HttpResponseMessage response = _httpClient.SendAsync(request).Result;
+            response.EnsureSuccessStatusCode();
+            var responseBody = response.Content.ReadAsStringAsync().Result;
 
             // Parse response.
-            List<RedditThread> redditThreads = new List<RedditThread>();
             JObject responseJson = (JObject)JsonConvert.DeserializeObject(responseBody);
 
             foreach (JObject thread in responseJson["data"]["children"])
@@ -97,10 +82,15 @@ namespace RedditFollower.Api.Data
                 JObject threadData = (JObject)thread["data"];
                 RedditApiThread redditThreadFromApi = (RedditApiThread)threadData.ToObject(typeof(RedditApiThread));
                 RedditThread redditThread = new RedditThread(redditThreadFromApi);
-                redditThreads.Add(redditThread);
+                yield return redditThread;
             }
+        }
 
-            return redditThreads;
+        private void SetRequestAuth(HttpRequestMessage request)
+        {
+            string authToken = AuthRepository.GetAuthToken();
+            request.Headers.Authorization = AuthenticationHeaderValue.Parse($"bearer {authToken}");
+            request.Headers.Add("User-Agent", "Reddit-Bot");
         }
     }
 }

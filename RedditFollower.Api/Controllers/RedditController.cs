@@ -14,20 +14,25 @@ namespace RedditFollower.Api.Controllers
     public class RedditController : Controller
     {
         private readonly ILogger _logger;
+        private readonly RedditRepository _redditRepository;
 
         public RedditController(ILogger logger)
         {
             _logger = logger;
+            _redditRepository = new RedditRepository();
         }
 
+        /// <summary>
+        /// TODO - either batch import threads and comments
+        /// or make these API calls asynchronous
+        /// </summary>
         [HttpPost] // POST: api/reddit/threads
         public JsonResult Threads(List<string> userNames)
         {
             // Get a list of comments from all users.
-            var redditRepo = new RedditRepository();
             List<RedditComment> comments = new List<RedditComment>();
             List<RedditUser> users = new List<RedditUser>();
-            int userId = 0; // comes from db
+            int userId = 0; // Pull from elsewhere if persistent data store used.
             foreach (string user in userNames)
             {
                 // Can rework this to get more or fewer comments later
@@ -35,7 +40,7 @@ namespace RedditFollower.Api.Controllers
                 int errorCode = 200;
                 try
                 {
-                    List<RedditComment> userComments = redditRepo.GetRecentUserComments(user);
+                    var userComments = _redditRepository.GetRecentUserComments(user);
 
                     // Parse markdown in comment body
                     // https://github.com/hey-red/Markdown
@@ -64,30 +69,23 @@ namespace RedditFollower.Api.Controllers
             }
 
             // Get Reddit threads from users' comments.
-            Dictionary<string, List<RedditComment>> commentsGroupedByThread = comments
-                .GroupBy(c => c.RedditLinkId)
-                .ToDictionary(
-                    grouping => grouping.Key, 
-                    grouping => grouping.ToList()
-                );
-
-           var threadIds = comments
+            var threadIds = comments
                 .Select(c => c.RedditLinkId)
                 .Distinct();
 
-            var threads = redditRepo.GetThreadsById(threadIds);
+            var threads = _redditRepository
+                .GetThreadsById(threadIds)
+                .OrderByDescending(t => t.CreatedUtc);
 
             foreach (var thread in threads)
             {
-                var threadComments = commentsGroupedByThread[RedditTypes.Thread + thread.RedditThreadId];
+                string threadId = RedditTypes.Thread + thread.RedditThreadId;
+                var threadComments = comments
+                    .Where(c => c.RedditLinkId == threadId)
+                    .ToList();
                 thread.SetComments(threadComments);
             }
-
-            // Make sure they're in descending order
-            threads = threads
-                .OrderByDescending(t => t.CreatedUtc)
-                .ToList();
-
+            
             var response = new ThreadResponse()
             {
                 users = users,

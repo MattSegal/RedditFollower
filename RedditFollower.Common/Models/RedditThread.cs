@@ -35,8 +35,10 @@ namespace RedditFollower.Common.Models
         public void SetComments(List<RedditComment> comments)
         {
             Comments = comments;
-            CommentAuthors = (from comment in comments
-                              select comment.Author).Distinct().ToList<string>();
+            CommentAuthors = comments
+                .Select(c => c.Author)
+                .Distinct()
+                .ToList();
         }
         
     }
