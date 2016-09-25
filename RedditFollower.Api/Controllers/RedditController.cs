@@ -7,6 +7,7 @@ using RedditFollower.Common.Models;
 using RedditFollower.Common.Logging;
 
 using RedditFollower.Api.Data;
+using HeyRed.MarkdownSharp;
 
 namespace RedditFollower.Api.Controllers
 {
@@ -35,6 +36,15 @@ namespace RedditFollower.Api.Controllers
                 try
                 {
                     List<RedditComment> userComments = redditRepo.GetRecentUserComments(user);
+
+                    // Parse markdown in comment body
+                    // https://github.com/hey-red/Markdown
+                    Markdown mark = new Markdown();
+                    foreach (var comment in userComments)
+                    {
+                        comment.Body = mark.Transform(comment.Body);
+                    }                    
+
                     comments.AddRange(userComments);
                 }
                 catch (HttpException ex)

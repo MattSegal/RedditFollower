@@ -57,64 +57,14 @@ var ThreadEntry = React.createClass({
     }
 });
 
-var paras;
-var text;
-
 var ThreadComment = React.createClass({
     render: function () {
-        var linkRe          = new RegExp(/(\[[\s\S]+?\]\([^\)]+\))/g)
-        var italicRe        = new RegExp(/(_[^_]+_)/g)
-        var newlineRe       = new RegExp(/\n/g)
-        var httpRe          = new RegExp(/(http:|https:)\/\/[\s\S]+?\.[\s\S]+?(\s|$)/g)
-        var userRe          = new RegExp(/\/u\/\w+/g)
-        var subRe           = new RegExp(/\/r\/\w+/g)
-
-        var splitRe = new RegExp(linkRe.source + "|" + italicRe.source + "|" + newlineRe.source )
-
-        var isNewLine   = (text) => text === ""
-        var isQuote     = (text) => text[0] === ">"
-        var decodeText = (paragraph) => decodeEntities(paragraph)
-        var removeEnds = (str) =>  str.slice(1, str.length - 1)
-
-        var comment = this.props.comment
-        var textArr = (comment.Body + "\n")
-            .split(splitRe)
-            .filter(x=>x != undefined)
-            .map(decodeText)
-
-        var paragraphs = []
-        var paragraph = []
-        for (var i = 0; i < textArr.length; i++) {
-            console.warn(textArr[i])
-            if (isNewLine(textArr[i]) && paragraph.length > 0) {
-                if (typeof (paragraph[0]) === "string" && isQuote(paragraph[0])) {
-                    paragraph[0] = paragraph[0].slice(1)
-                    paragraphs.push(<p className="quote">{paragraph}</p>)
-                } else {
-                    paragraphs.push(<p>{paragraph}</p>)
-                }
-                paragraph = []
-            } else {
-                if (isQuote(textArr[i])) {
-                    paragraph.push(textArr[i])
-                // Italics are hard because of usernames - test for usernames, subreddits, links etc 1st
-                // } else if (italicRe.test(textArr[i])) {
-                //    paragraph.push(<span className="italic">{removeEnds(textArr[i])}</span>)
-                } else if (linkRe.test(textArr[i])) {
-                    var link = textArr[i].split("](")
-                    link[0] = link[0].slice(1)
-                    link[1] = link[1].slice(0,link[1].length-1)
-                    paragraph.push(<a href={link[1]}>{link[0]}</a>)
-                } else {
-                    paragraph.push(<span>{textArr[i]}</span>)
-                }
-            }
-        }
+        console.log(this.props.comment.Body)
         return (
-            <div className="comment">{paragraphs}</div>
+            <div className="comment" dangerouslySetInnerHTML={{ __html: this.props.comment.Body } } />
         )
     }
-});
+})
 
 var ThreadAuthor = React.createClass({
     render: function () {
