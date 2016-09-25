@@ -54,29 +54,29 @@ namespace RedditFollowerApi.Controllers
             }
 
             // Get Reddit threads from users' comments.
-            // Warning - abuse of LINQ
-            Dictionary<string, List<RedditComment>> commentsGroupedByThread =
-                (from comment in comments
-                 group comment by comment.RedditLinkId into commentGroup
-                 select commentGroup).ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
+            Dictionary<string, List<RedditComment>> commentsGroupedByThread = comments
+                .GroupBy(c => c.RedditLinkId)
+                .ToDictionary(
+                    grouping => grouping.Key, 
+                    grouping => grouping.ToList()
+                );
 
-            IEnumerable<string> threadIds =
-                (from comment in comments
-                 select comment.RedditLinkId).Distinct<string>();
+           var threadIds = comments
+                .Select(c => c.RedditLinkId)
+                .Distinct();
 
-            List<RedditThread> threads = redditRepo.GetThreadsById(threadIds);
+            var threads = redditRepo.GetThreadsById(threadIds);
 
-            foreach (RedditThread thread in threads)
+            foreach (var thread in threads)
             {
                 var threadComments = commentsGroupedByThread[RedditTypes.Thread + thread.RedditThreadId];
                 thread.SetComments(threadComments);
             }
 
             // Make sure they're in descending order
-            threads =
-                (from thread in threads
-                 orderby thread.CreatedUtc descending
-                 select thread).ToList<RedditThread>();
+            threads = threads
+                .OrderByDescending(t => t.CreatedUtc)
+                .ToList();
 
             var response = new ThreadResponse()
             {
