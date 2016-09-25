@@ -22,17 +22,12 @@ namespace RedditFollower.Api.Controllers
             _redditRepository = new RedditRepository();
         }
 
-        /// <summary>
-        /// TODO - either batch import threads and comments
-        /// or make these API calls asynchronous
-        /// </summary>
         [HttpPost] // POST: api/reddit/threads
         public JsonResult Threads(List<string> userNames)
         {
             int userId = 0; // Pull from elsewhere if persistent data store used.
 
             var comments = _redditRepository.GetCommentsAsync(userNames).Result;
-            //var comments = new List<RedditComment>();
 
             // Parse markdown in comment body
             // https://github.com/hey-red/Markdown
@@ -61,8 +56,6 @@ namespace RedditFollower.Api.Controllers
             }
 
             // What if there are no comments returned?
-
-            // Get Reddit threads from users' comments.
             var threadIds = comments
                 .Select(c => c.RedditLinkId)
                 .Distinct();
