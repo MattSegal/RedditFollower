@@ -1,0 +1,36 @@
+﻿@using RedditFollower.Common.Models;
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Redditors</title>
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/css/style.min.css")">
+    </head>
+<body>
+    <div class="content">
+        <h3>Links from Interesting People</h3>
+        <div id="app-root">
+            <div class="dash-panel">
+                <div class="btn neutral">Loading...</div>
+            </div>
+        </div>
+    </div>
+    @* Load React *@
+    @*<script src="@Url.Content("~/Content/js/React/react.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/React/react-dom.min.js")"></script>*@
+    <script src="https://fb.me/react-15.2.1.js"></script>
+    <script src="https://fb.me/react-dom-15.2.1.js"></script>
+    @* Load Services *@
+    <script src="@Url.Content("~/Content/js/Services/_Helpers.js")"></script>
+    <script src="@Url.Content("~/Content/js/Services/_FollowerApi.js")"></script>
+    @* Load Models *@
+    <script src="@Url.Content("~/Content/js/Models/_Enums.js")"></script>
+    <script src="@Url.Content("~/Content/js/Models/_UserModel.js")"></script>
+    <script src="@Url.Content("~/Content/js/Models/_ThreadModel.js")"></script>
+    @* Load View *@
+    <script src="@Url.Content("~/Content/js/View/_ThreadComponents.js")"></script>
+    <script src="@Url.Content("~/Content/js/View/_UserComponents.js")"></script>
+    <script src="@Url.Content("~/Content/js/View/_DashComponents.js")"></script>
+    <script src="@Url.Content("~/Content/js/View/_Components.js")"></script>
+</body>
+</html>
