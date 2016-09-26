@@ -4,7 +4,7 @@
             successCallback({ users: [], threads: [] })
             return
         }
-        uri = "http://localhost/api/reddit/threads"
+        uri = "/api/reddit/threads"
         method = 'POST'
         console.log("Querying follower api...")
         var httpRequest = new XMLHttpRequest()
